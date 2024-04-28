@@ -1,0 +1,255 @@
+.screen-14-tpone,
+.screen-21-tpone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--color-white);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.temp-data-child-tpone {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  background-color: var(--color-darkslategray-100);
+  width: 1024px;
+  height: 90px;
+}
+.normal2-tpone,
+.p1-tpone {
+  margin: 0;
+}
+.result-temp4-tpone {
+  position: absolute;
+  top: 264px;
+  left: 61.2px;
+  display: inline-block;
+  width: 136.7px;
+  height: 83px;
+}
+.circle4-tpone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background-color: var(--color-deepskyblue-100);
+  width: 100%;
+  height: 100%;
+}
+.thermometer-icon2-tpone {
+  position: absolute;
+  top: 24.8px;
+  left: 57.4px;
+  width: 143.4px;
+  height: 140.8px;
+  overflow: hidden;
+}
+.temperature2-tpone {
+  margin: 0;
+  position: absolute;
+  top: 177px;
+  left: 47.9px;
+  font-size: inherit;
+  font-weight: 900;
+  font-family: inherit;
+  display: inline-block;
+  width: 160.2px;
+  height: 27px;
+}
+.temp1-tpone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 252.3px;
+  text-align: left;
+  font-size: var(--font-size-5xl);
+}
+.result-temp-parent-tpone {
+  position: absolute;
+  top: 182px;
+  left: 390px;
+  width: 257px;
+  height: 347px;
+  font-size: var(--font-size-13xl);
+}
+.vital-signs-result1-tpone {
+  margin: 0;
+  position: absolute;
+  top: 105px;
+  left: 378px;
+  font-size: var(--font-size-17xl);
+  font-weight: 900;
+  font-family: inherit;
+  text-align: left;
+}
+.temp-data-item-tpone {
+  position: absolute;
+  top: 580.5px;
+  left: 989.3px;
+  width: 14px;
+  height: 0;
+  object-fit: contain;
+}
+.temp-data-inner-tpone {
+  position: absolute;
+  top: 476px;
+  left: 927px;
+  width: 83.3px;
+  height: 84.4px;
+  cursor: pointer;
+}
+.done5-tpone {
+  margin: 0;
+}
+.done4-tpone {
+  position: absolute;
+  top: 565px;
+  left: 927px;
+  font-weight: 900;
+  display: inline-block;
+  width: 90px;
+  height: 40px;
+}
+.vector-icon5-tpone {
+  position: absolute;
+  height: 7.67%;
+  width: 4.49%;
+  top: 3.33%;
+  right: 8.98%;
+  bottom: 89%;
+  left: 86.52%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.about3-tpone,
+.home3-tpone {
+  position: absolute;
+  top: 27px;
+  left: 933px;
+  display: flex;
+  color: var(--color-white);
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 20px;
+}
+.home3-tpone {
+  top: 31px;
+  left: 829px;
+  width: 51px;
+  min-width: 51px;
+  cursor: pointer;
+}
+.home-2-streamline-coresvg-icon3-tpone {
+  position: absolute;
+  height: 7.43%;
+  width: 4.98%;
+  top: 2.95%;
+  right: 19.53%;
+  bottom: 89.62%;
+  left: 75.49%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.logomedisation-2-icon3-tpone {
+  position: absolute;
+  width: calc(100% - 17px);
+  top: 3px;
+  right: 9px;
+  left: 8px;
+  max-width: 100%;
+  overflow: hidden;
+  height: 73px;
+  object-fit: cover;
+}
+.speech-language-therapy3-tpone {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  overflow: hidden;
+}
+.health-kiosk4-tpone {
+  margin: 0;
+  position: absolute;
+  top: 17px;
+  left: 94px;
+  font-size: inherit;
+  font-weight: 900;
+  font-family: inherit;
+  display: inline-block;
+  width: 235px;
+  height: 44px;
+}
+.group-div-tpone {
+  position: absolute;
+  top: 4px;
+  left: 46px;
+  width: 329px;
+  height: 80px;
+  text-align: left;
+  font-size: var(--font-size-17xl);
+  color: var(--color-white);
+}
+.temp-data-tpone {
+  width: 100%;
+  height: 600px;
+  position: relative;
+  background-color: var(--color-white);
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--dark);
+  font-family: var(--font-inter);
+}
+@media screen and (max-width: 767px) {
+  .result-temp4-tpone {
+    font-size: var(--font-size-7xl);
+  }
+  .health-kiosk4-tpone,
+  .vital-signs-result1-tpone {
+    font-size: var(--font-size-10xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .result-temp4-tpone,
+  .temperature2-tpone {
+    font-size: var(--font-size-lgi);
+  }
+  .health-kiosk4-tpone,
+  .vital-signs-result1-tpone {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+.loader-container {
+  text-align: center; 
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80vh;
+  position: relative;
+  
+}
+
+.loading-text {
+  position: absolute; 
+  /* bottom: 20px; */
+  font-size: 25px; 
+  color: #050b1d;
+  height: -80vh;
+  font-weight: 900;
+  font-family: inherit;
+}
