@@ -10,9 +10,9 @@ const FrameComponent1 = ({
       <div className="speech-language-therapy-container">
         <button className="speech-language-therapy2">
           <img
-            className="logomedisation-2-icon1"
+            className="logonew"
             alt=""
-            src="/logomedisation-1@2x.png"
+            src="/logonew.png"
             onClick={onHome2StreamlineCoresvgClick}
           />
         </button>

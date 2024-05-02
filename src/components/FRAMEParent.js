@@ -7,9 +7,9 @@ const FRAMEParent = () => {
       <div className="speech-language-therapy-group">
         <button className="speech-language-therapy1">
           <img
-            className="logomedisation-1-icon"
+            className="logonew"
             alt=""
-            src="/logomedisation-1@2x.png"
+            src="/logonew.png"
           />
           <img className="vector-icon4" alt="" src="/vector.svg" />
         </button>

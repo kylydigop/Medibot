@@ -39,9 +39,9 @@ const SelectionThree = () => {
         <div className="speech-language-therapy-parent">
           <button className="speech-language-therapy">
             <img
-              className="logomedisation-2-icon"
+              className="logonew"
               alt=""
-              src="/logomedisation-1@2x.png"
+              src="/logonew.png"
               onClick={onHome2StreamlineCoresvgClick}
             />
           </button>

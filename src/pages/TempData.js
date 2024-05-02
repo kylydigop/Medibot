@@ -87,9 +87,9 @@ const TempData = () => {
           <div className="group-div-tpone">
             <button className="speech-language-therapy3-tpone">
               <img
-                className="logomedisation-2-icon3-tpone"
+                className="logonew"
                 alt=""
-                src="/logomedisation-1@2x.png"
+                src="/logonew.png"
               />
             </button>
             <h1 className="health-kiosk4-tpone">MediSation</h1>

@@ -9,11 +9,11 @@ const FrameComponent2 = ({
       <header className="rectangle-header-sat" />
       <div className="speech-language-therapy-parent1-sat">
         <button className="speech-language-therapy3-sat">
-          <img
-            className="logomedisation-2-icon2-sat"
-            alt=""
-            src="/logomedisation-1@2x.png"
-          />
+        <img
+                className="logonew"
+                alt=""
+                src="/logonew.png"
+              />
         </button>
         <div className="health-kiosk-frame-sat">
           <h1 className="health-kiosk3-sat">MediSation</h1>

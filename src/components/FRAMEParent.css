@@ -148,3 +148,15 @@
     flex-wrap: wrap;
   }
 }
+
+.logonew {
+  height: 73px;
+  width: calc(100% - 17px);
+  object-fit: cover;
+  right: 9px;
+  max-width: 100%;
+  top: 3px;
+  left: 8px;
+  
+  
+}
