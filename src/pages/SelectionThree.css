@@ -1,3 +1,31 @@
+.micbtn {
+  position: relative;
+}
+
+.stopped,
+.recording {
+  position: absolute;
+  top: 120%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  margin-left: 10%;
+  
+}
+
+.red {
+  color: red;
+}
+
+.stopped {
+  left: calc(50% - 37.5px);
+  color: var(--color-white);
+}
+
+.recording {
+  left: calc(50% - 44px);
+  color: red;
+}
+
 .frame-inner,
 .screen-14,
 .screen-2-icon2 {
@@ -7,20 +35,24 @@
   width: 100%;
   height: 100%;
 }
+
 .screen-14 {
   background-color: var(--color-white);
   display: none;
 }
+
 .frame-inner,
 .screen-2-icon2 {
   z-index: 1;
 }
+
 .frame-inner {
   bottom: 0;
   max-height: 100%;
   width: 899px;
   z-index: 2;
 }
+
 .group-icon {
   position: absolute;
   top: 370px;
@@ -30,6 +62,7 @@
   cursor: pointer;
   z-index: 3;
 }
+
 .frame-section {
   position: absolute;
   top: 117px;
@@ -37,9 +70,11 @@
   width: 958.3px;
   height: 460px;
 }
+
 .done5 {
   margin: 0;
 }
+
 .done4 {
   position: absolute;
   top: 576px;
@@ -50,6 +85,7 @@
   height: 40px;
   z-index: 2;
 }
+
 .rectangle-div {
   height: 90px;
   width: 1024px;
@@ -58,6 +94,7 @@
   display: none;
   max-width: 100%;
 }
+
 .logomedisation-2-icon {
   position: absolute;
   width: calc(100% - 17px);
@@ -69,6 +106,7 @@
   height: 73px;
   object-fit: cover;
 }
+
 .speech-language-therapy {
   cursor: pointer;
   border: 0;
@@ -81,6 +119,7 @@
   flex-shrink: 0;
   z-index: 3;
 }
+
 .health-kiosk {
   margin: 0;
   align-self: stretch;
@@ -91,23 +130,27 @@
   white-space: nowrap;
   z-index: 3;
 }
+
 .health-kiosk-wrapper,
 .speech-language-therapy-parent {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
 }
+
 .health-kiosk-wrapper {
   flex: 1;
   flex-direction: column;
   padding: var(--padding-mid) 0 0;
 }
+
 .speech-language-therapy-parent {
   width: 329px;
   flex-direction: row;
   gap: var(--gap-sm);
   max-width: 100%;
 }
+
 .home-2-streamline-coresvg-icon {
   width: 51px;
   height: 52px;
@@ -117,6 +160,7 @@
   cursor: pointer;
   z-index: 3;
 }
+
 .home-2-streamline-coresvg-wrapper {
   align-self: stretch;
   display: flex;
@@ -125,6 +169,7 @@
   justify-content: flex-end;
   padding: 0 var(--padding-8xs) var(--padding-12xs) 0;
 }
+
 .home {
   align-self: stretch;
   height: 28px;
@@ -137,6 +182,7 @@
   cursor: pointer;
   z-index: 3;
 }
+
 .home-wrapper {
   width: 56px;
   display: flex;
@@ -146,17 +192,20 @@
   padding: 0 var(--padding-8xs) var(--padding-5xs) 0;
   box-sizing: border-box;
 }
+
 .about,
 .about-icon {
   position: relative;
   flex-shrink: 0;
   z-index: 3;
 }
+
 .about-icon {
   height: 48px;
   width: 48px;
   overflow: hidden;
 }
+
 .about {
   align-self: stretch;
   height: 32px;
@@ -164,6 +213,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .about-wrapper {
   flex: 1;
   display: flex;
@@ -172,6 +222,7 @@
   justify-content: flex-end;
   padding: 0 0 var(--padding-5xs);
 }
+
 .frame-parent3 {
   align-self: stretch;
   flex: 1;
@@ -180,6 +231,7 @@
   align-items: flex-end;
   justify-content: flex-start;
 }
+
 .frame-wrapper2 {
   height: 66px;
   width: 230px;
@@ -192,6 +244,7 @@
   text-align: center;
   font-size: var(--font-size-base);
 }
+
 .rectangle-parent {
   position: sticky;
   top: 0;
@@ -202,8 +255,7 @@
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
-  padding: var(--padding-9xs) var(--padding-mini) var(--padding-7xs)
-    var(--padding-27xl);
+  padding: var(--padding-9xs) var(--padding-mini) var(--padding-7xs) var(--padding-27xl);
   box-sizing: border-box;
   z-index: 99;
   gap: var(--gap-xl);
@@ -213,6 +265,7 @@
   color: var(--color-white);
   font-family: var(--font-inter);
 }
+
 .frame-child1 {
   height: 55px;
   width: 899px;
@@ -222,6 +275,7 @@
   display: none;
   max-width: 100%;
 }
+
 .medibot-assistant {
   width: 342px;
   position: relative;
@@ -235,11 +289,11 @@
   max-width: 100%;
   z-index: 4;
 }
+
 .rectangle-group {
   cursor: pointer;
   border: 0;
-  padding: var(--padding-lgi) var(--padding-xl) var(--padding-lgi)
-    var(--padding-2xl);
+  padding: var(--padding-lgi) var(--padding-xl) var(--padding-lgi) var(--padding-2xl);
   background-color: var(--color-gray-100);
   align-self: stretch;
   border-radius: var(--br-31xl) var(--br-31xl) 0 0;
@@ -251,9 +305,11 @@
   max-width: 100%;
   z-index: 3;
 }
+
 .rectangle-group:hover {
   background-color: #404040;
 }
+
 .send-medibot-a {
   width: 218px;
   position: relative;
@@ -261,6 +317,7 @@
   flex-shrink: 0;
   z-index: 3;
 }
+
 .send-medibot-a-message-wrapper {
   align-self: stretch;
   display: flex;
@@ -269,6 +326,7 @@
   justify-content: center;
   padding: 0 var(--padding-xl) 0 var(--padding-2xl);
 }
+
 .frame-parent5 {
   align-self: stretch;
   display: flex;
@@ -278,6 +336,7 @@
   gap: var(--gap-mini);
   max-width: 100%;
 }
+
 .frame-child2 {
   height: 118px;
   width: 318px;
@@ -286,6 +345,7 @@
   background-color: var(--color-gray-100);
   display: none;
 }
+
 .micbtn-child {
   position: absolute;
   width: calc(100% - 16px);
@@ -296,15 +356,7 @@
   overflow: hidden;
   height: 87px;
 }
-.stopped {
-  position: absolute;
-  height: 15.44%;
-  top: 112.41%;
-  left: calc(50% - 37.5px);
-  line-height: 6px;
-  display: inline-block;
-  width: 76px;
-}
+
 .function-x-icon,
 .vector-icon,
 .vector-icon1,
@@ -322,6 +374,7 @@
   max-height: 100%;
   z-index: 1;
 }
+
 .function-x-icon,
 .vector-icon1,
 .vector-icon2,
@@ -333,6 +386,7 @@
   bottom: 35.44%;
   left: 33.33%;
 }
+
 .function-x-icon,
 .vector-icon2,
 .vector-icon3 {
@@ -340,6 +394,7 @@
   top: 32.91%;
   z-index: 2;
 }
+
 .function-x-icon,
 .vector-icon3 {
   height: 41.65%;
@@ -350,6 +405,7 @@
   left: 20.81%;
   z-index: 3;
 }
+
 .vector-icon3 {
   height: 62.53%;
   width: 33.33%;
@@ -359,12 +415,14 @@
   left: 33.33%;
   z-index: 4;
 }
+
 .micbtn {
   height: 79px;
   width: 99px;
   position: relative;
   z-index: 4;
 }
+
 .frame-wrapper3,
 .rectangle-container {
   display: flex;
@@ -372,6 +430,7 @@
   align-items: flex-start;
   justify-content: center;
 }
+
 .rectangle-container {
   width: 318px;
   border-radius: var(--br-31xl) var(--br-31xl) 0 0;
@@ -380,11 +439,13 @@
   box-sizing: border-box;
   z-index: 3;
 }
+
 .frame-wrapper3 {
   align-self: stretch;
   padding: 0 var(--padding-2xl) 0 var(--padding-xl);
   color: var(--color-white);
 }
+
 .frame-parent4,
 .selectionthree {
   text-align: center;
@@ -392,6 +453,7 @@
   color: var(--dark);
   font-family: var(--font-inter);
 }
+
 .frame-parent4 {
   position: absolute;
   top: 117px;
@@ -404,6 +466,7 @@
   gap: 274px;
   max-width: 100%;
 }
+
 .selectionthree {
   width: 100%;
   height: 600px;
@@ -412,17 +475,20 @@
   letter-spacing: normal;
   z-index: 1;
 }
+
 @media screen and (max-width: 750px) {
   .health-kiosk {
     font-size: var(--font-size-10xl);
   }
 }
+
 @media screen and (max-width: 675px) {
   .rectangle-parent {
     padding-left: var(--padding-4xl);
     box-sizing: border-box;
   }
 }
+
 @media screen and (max-width: 450px) {
   .health-kiosk {
     font-size: var(--font-size-3xl);

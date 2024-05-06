@@ -1,9 +1,12 @@
-import { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SelectionThree.css";
 
 const SelectionThree = () => {
   const navigate = useNavigate();
+  const [recognizedText, setRecognizedText] = useState("");
+  const [listening, setListening] = useState(false);
+  const recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
 
   const onGroupClick = useCallback(() => {
     navigate("/");
@@ -16,6 +19,39 @@ const SelectionThree = () => {
   const onHOMETextClick = useCallback(() => {
     navigate("/");
   }, [navigate]);
+
+  const startListening = () => {
+    if (listening) {
+      // If already listening, stop recognition
+      recognition.stop();
+      setListening(false); // Update state to indicate not listening
+    } else {
+      // If not listening, start recognition
+      recognition.lang = "en-US";
+
+      recognition.onstart = () => {
+        console.log("Speech recognition started");
+        setListening(true); // Update state to indicate listening
+      };
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setRecognizedText(transcript);
+        console.log("Recognized text:", transcript);
+      };
+
+      recognition.onerror = (event) => {
+        console.error("Speech recognition error:", event.error);
+      };
+
+      recognition.onend = () => {
+        console.log("Speech recognition ended");
+        setListening(false); // Update state to indicate not listening
+      };
+
+      recognition.start();
+    }
+  };
 
   return (
     <div className="selectionthree">
@@ -90,19 +126,28 @@ const SelectionThree = () => {
         <div className="frame-wrapper3">
           <div className="rectangle-container">
             <div className="frame-child2" />
-            <div className="micbtn">
-              <img className="micbtn-child" alt="" src="/ellipse-7.svg" />
-              <div className="stopped">stopped</div>
-              <img
-                className="vector-icon"
-                loading="lazy"
-                alt=""
-                src="/vector2.svg"
-              />
-              <img className="vector-icon1" alt="" src="/vector-1.svg" />
-              <img className="vector-icon2" alt="" src="/vector-2.svg" />
-              <img className="function-x-icon" alt="" src="/vector-3.svg" />
-              <img className="vector-icon3" alt="" src="/vector-4.svg" />
+            <div className="micbtn" onClick={startListening}>
+              {listening ? ( // Conditionally render mic button content based on listening state
+                <React.Fragment>
+                  <img className="micbtn-child" alt="" src="/ellipse-7red.svg" />
+                  <div className="recording">recording</div> {/* New */}
+                  <img className="vector-icon" loading="lazy" alt="" src="/vector2.svg" />
+                  <img className="vector-icon1" alt="" src="/vector-1.svg" />
+                  <img className="vector-icon2" alt="" src="/vector-2.svg" />
+                  <img className="function-x-icon" alt="" src="/vector-3.svg" />
+                  <img className="vector-icon3" alt="" src="/vector-4.svg" />
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <img className="micbtn-child" alt="" src="/ellipse-7.svg" />
+                  <div className="stopped">stopped</div>
+                  <img className="vector-icon" loading="lazy" alt="" src="/vector2.svg" />
+                  <img className="vector-icon1" alt="" src="/vector-1.svg" />
+                  <img className="vector-icon2" alt="" src="/vector-2.svg" />
+                  <img className="function-x-icon" alt="" src="/vector-3.svg" />
+                  <img className="vector-icon3" alt="" src="/vector-4.svg" />
+                </React.Fragment>
+              )}
             </div>
           </div>
         </div>
@@ -112,3 +157,4 @@ const SelectionThree = () => {
 };
 
 export default SelectionThree;
+
