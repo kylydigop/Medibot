@@ -37,7 +37,7 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    padding: var(--padding-108xl) var(--padding-xl) var(--padding-58xl);
+    /* padding: var(--padding-108xl) var(--padding-xl) var(--padding-58xl); */
     box-sizing: border-box;
     max-width: 100%;
     z-index: 2;

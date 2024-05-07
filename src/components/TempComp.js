@@ -1,26 +1,55 @@
-import React from 'react';
-import { Fade, Slide } from 'react-slideshow-image';
-import 'react-slideshow-image/dist/styles.css';
+import React, { useEffect, useRef, useState } from 'react';
 import "./TempComp.css";
 
-const gifImage = process.env.PUBLIC_URL + '/sample.gif'; // Import the GIF file
+const gifImage = process.env.PUBLIC_URL + '/tempAnimation.gif'; // Import the GIF file
 
 const TempComp = ({
   aNIMATIONONHOWTOUSETHETEM,
   onGroupContainer1Click,
 }) => {
+  const gifRef = useRef(null);
+  const [loaded, setLoaded] = useState(false); // Flag to track whether the GIF has been loaded
+
+  useEffect(() => {
+    let observer;
+
+    const handleIntersection = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Start loading the GIF and reset it to the starting frame if it's the first load
+          if (!loaded && gifRef.current) {
+            gifRef.current.src = gifImage;
+            gifRef.current.currentTime = 0;
+            setLoaded(true); // Set the loaded flag to true
+          }
+        } else {
+          // Stop loading the GIF when it goes out of view
+          if (gifRef.current) {
+            gifRef.current.src = '';
+          }
+        }
+      });
+    };
+
+    if (typeof IntersectionObserver !== 'undefined' && gifRef.current) {
+      observer = new IntersectionObserver(handleIntersection);
+      observer.observe(gifRef.current);
+    }
+
+    return () => {
+      if (observer && gifRef.current) {
+        observer.unobserve(gifRef.current);
+      }
+    };
+  }, [loaded]); // Add loaded as a dependency to update the effect when it changes
+
   return (
     <div className="frame-parent7">
       <div className="vector-parent">
-        {/* Adjust the size of the GIF image */}
-        <img src={gifImage} alt="sample.gif" style={{ width: '100px', height: '100px' }} />
+        {/* Attach the ref to the image element */}
+        <img ref={gifRef} alt="tempAnimation.gif" style={{ width: '60%', height: '100%' }} />
         
-        {/* Other content */}
-        <img className="rectangle-icon" alt="" src="/rectangle-9.svg" />
-        <h3 className="result-temp3">
-          <p className="animation-on-how">{aNIMATIONONHOWTOUSETHETEM}</p>
-          <p className="press-any-key">aaa</p>
-        </h3>
+        <img className="rectangle-icon" alt="" src="/rectangle-9.svg" />  
       </div>
       <div className="group-div" onClick={onGroupContainer1Click}>
         <div className="frame-child4" />

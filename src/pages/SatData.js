@@ -15,7 +15,13 @@ const SaturationData = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      speak("Your Vital Sign Result in Oxygen is 95 Percent.. Normal... and your pulse rate/beats per minute is 78.. Normal...");
     }, 8000);
+
+
+
+    // Pagtapos ng loader result na voice.
+    speak("Processing.... Please do not remove your finger while getting the result.");
   }, []);
 
   const onHome2StreamlineCoresvgClick = useCallback(() => {
@@ -27,8 +33,19 @@ const SaturationData = () => {
   }, [navigate]);
 
   const onGroup1Click = useCallback(() => {
+    speak("Thank you for using MediSation. Have a great day...");
     navigate("/");
   }, [navigate]);
+
+
+  const speak = (text) => {
+    const speechSynthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.pitch = 1.2;
+    utterance.volume = 1;
+    utterance.rate = 0.9;
+    speechSynthesis.speak(utterance);
+  };
 
   return (
     <div className="saturation-data">

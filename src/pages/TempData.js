@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "./TempData.css";
-import ClipLoader from "react-spinners/ClipLoader";
-import { DotLoader, PuffLoader, RingLoader } from "react-spinners";
+import { PuffLoader } from "react-spinners";
 
 const TempData = () => {
   const navigate = useNavigate();
@@ -12,10 +11,15 @@ const TempData = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      speak("Your Vital Sign Result in Temperature Is 32.0 Degree Celcius.. Normal...");
     }, 8000);
+
+    // Pagtapos ng loader result na voice.
+    speak("Processing.... Please do not remove your finger while getting the result.");
   }, []);
 
   const onGroupClick = useCallback(() => {
+    speak("Thank you for using MediSation. Have a great day..."); // Trigger voice-over speech
     navigate("/");
   }, [navigate]);
 
@@ -23,15 +27,25 @@ const TempData = () => {
     navigate("/");
   }, [navigate]);
 
+  const speak = (text) => {
+    const speechSynthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.pitch = 1.2;
+    utterance.volume = 1;
+    utterance.rate = 0.9;
+    speechSynthesis.speak(utterance);
+  };
+
   return (
     <div className="temp-data-tpone">
       {loading ? (
         <div className="loader-container">
-        <PuffLoader size={350} color={"#150da9"}  loading={loading} />
-        {loading && <span className="loading-text">PROCESSING</span>}
-      </div>
+          <PuffLoader size={350} color={"#150da9"} loading={loading} />
+          {loading && <span className="loading-text">PROCESSING</span>}
+        </div>
       ) : (
         <>
+
           <div className="screen-14-tpone" />
           <section className="screen-21-tpone" />
           <header className="temp-data-child-tpone" />

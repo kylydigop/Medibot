@@ -10,15 +10,41 @@ const Homeselection = () => {
   const speak = (text) => {
     const speechSynthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.pitch = 10
-    utterance.volume = 25
-    utterance.rate = 0.8
+    utterance.pitch = 1.2;
+    utterance.volume = 1;
+    utterance.rate = 0.9;
     speechSynthesis.speak(utterance);
   };
 
   // Voice over sa Homescreen.
   useEffect(() => {
-    speak("Welcome to MediSation, your companion on the journey to well-being...... Use the options below to start  your measurement...");
+    const utteranceText = "Welcome to Medi Sation, your companion on the journey to well-being... Press 1 if you want to measure Temperature... Press 2 if you want to measure Oxygen and Pulse rate... Press 3 to Ask Question...";
+    speak(utteranceText);
+
+    // Add event listener for keydown event to listen for number pad keys
+    const handleKeyPress = (event) => {
+      if (event.key === "1") {
+        navigate("/selectionone");
+      } else if (event.key === "2") {
+        navigate("/selectiontwo");
+      } else if (event.key === "3") {
+        navigate("/selectionthree");
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    // Cleanup function to remove event listener when component unmounts
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [navigate]);
+
+  useEffect(() => {
+    // Cancel speech synthesis when navigating away
+    return () => {
+      window.speechSynthesis.cancel();
+    };
   }, []);
 
   const onTempContainerClick = useCallback(() => {

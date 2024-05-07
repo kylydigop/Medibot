@@ -1,15 +1,17 @@
 .rectangle-icon {
-  width: 678px;
+  width: 100%; /* Resize to match parent */
   position: relative;
   border-radius: var(--br-31xl);
   max-height: 100%;
   display: none;
   max-width: 100%;
 }
+
 .animation-on-how,
 .press-any-key {
   margin: 0;
 }
+
 .result-temp3 {
   margin: 0;
   height: 115px;
@@ -23,25 +25,28 @@
   max-width: 100%;
   z-index: 1;
 }
+
 .frame-child4,
 .vector-parent123 {
   position: absolute;
   top: 0;
   border-radius: var(--br-31xl);
 }
+
 .vector-parent {
   left: 0;
   background-color: var(--color-whitesmoke);
-  width: 678px;
+  width: 100%; /* Resize to match parent */
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
-  padding: var(--padding-108xl) var(--padding-xl) var(--padding-58xl);
+  /* padding: var(--padding-108xl) var(--padding-xl) var(--padding-58xl); */
   box-sizing: border-box;
   max-width: 100%;
   z-index: 2;
 }
+
 .frame-child4 {
   height: 100%;
   bottom: 0;
@@ -49,11 +54,13 @@
   background-color: var(--color-gray);
   width: 190.2px;
 }
+
 .group-div,
 .start {
   position: absolute;
   width: 227px;
 }
+
 .start {
   margin: 0;
   top: 17.3px;
@@ -65,6 +72,7 @@
   height: 56.6px;
   z-index: 1;
 }
+
 .group-div {
   top: 277px;
   left: 225px;
@@ -74,6 +82,7 @@
   font-size: var(--font-size-21xl);
   color: var(--color-white);
 }
+
 .frame-parent7 {
   height: 351px;
   flex: 1;
@@ -85,16 +94,19 @@
   color: var(--dark);
   font-family: var(--font-inter);
 }
+
 @media screen and (max-width: 800px) {
   .start {
     font-size: var(--font-size-13xl);
   }
 }
+
 @media screen and (max-width: 675px) {
   .frame-parent7 {
     min-width: 100%;
   }
 }
+
 @media screen and (max-width: 450px) {
   .result-temp3 {
     font-size: var(--font-size-lgi);
