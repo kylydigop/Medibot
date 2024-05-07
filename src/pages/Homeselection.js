@@ -1,10 +1,25 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import FRAMEParent from "../components/FRAMEParent";
 import { useNavigate } from "react-router-dom";
 import "./Homeselection.css";
 
 const Homeselection = () => {
   const navigate = useNavigate();
+
+  // Function to speak the given text
+  const speak = (text) => {
+    const speechSynthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.pitch = 10
+    utterance.volume = 25
+    utterance.rate = 0.8
+    speechSynthesis.speak(utterance);
+  };
+
+  // Voice over sa Homescreen.
+  useEffect(() => {
+    speak("Welcome to MediSation, your companion on the journey to well-being...... Use the options below to start  your measurement...");
+  }, []);
 
   const onTempContainerClick = useCallback(() => {
     navigate("/selectionone");
