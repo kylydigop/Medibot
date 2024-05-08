@@ -12,7 +12,7 @@ const TempData = () => {
   useEffect(() => {
     setLoading(true);
     speak("Processing.... Please do not remove your finger while getting the result.");
-    fetchTemperatureData(); // Fetch temperature data when component mounts
+    fetchTemperatureData(); 
   }, []);
 
   const fetchTemperatureData = async () => {
