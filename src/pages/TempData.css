@@ -16,10 +16,22 @@
   width: 1024px;
   height: 90px;
 }
-.normal2-tpone,
+
+
 .p1-tpone {
   margin: 0;
+  text-align: center;
 }
+
+.normal2-tpone {
+  position: absolute;
+  top: 50%; /* Position the text vertically in the middle */
+  left: 50%; /* Position the text horizontally in the middle */
+  transform: translate(-50%, -50%); /* Adjust for center alignment */
+  text-align: center; /* Align the text horizontally */
+  white-space: nowrap; /* Ensure the text is displayed in a single line */
+}
+
 .result-temp4-tpone {
   position: absolute;
   top: 264px;
@@ -241,7 +253,6 @@
   width: 100%;
   height: 80vh;
   position: relative;
-  
 }
 
 .loading-text {
