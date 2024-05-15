@@ -9,6 +9,7 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from dotenv import load_dotenv
+import traceback
 import os
 
 app = Flask(__name__)
@@ -61,10 +62,20 @@ chain=ConversationalRetrievalChain.from_llm(
 
 @app.route("/chat", methods=["POST"])
 async def chat():
-    chat_history = []
-    question = request.json['msg']
-    result = await chain.ainvoke({"question": question, "chat_history": chat_history})
-    return jsonify(result["answer"])
+    try:
+        data = request.get_json()  
+        print("Received data:", data) 
+
+        question = data['msg'] 
+        chat_history = []
+
+        result = await chain.ainvoke({"question": question, "chat_history": chat_history})
+
+        return jsonify({"msg": result["answer"]})  # Make sure to send JSON with a key that the frontend expects.
+    except Exception as e:
+        print("Error processing request:", e)
+        traceback.print_exc()  # Print detailed traceback to help identify where exactly the error occurred.
+        return jsonify({"msg": "Error processing your request"}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

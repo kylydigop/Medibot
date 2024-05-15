@@ -71,6 +71,46 @@
   height: 460px;
 }
 
+.message-bubble {
+  padding: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  max-width: 70%; /* Controls maximum width of message */
+}
+
+.right {
+  align-self: flex-end;
+  background-color: #4CAF50; /* Green background for user messages */
+}
+
+.left {
+  align-self: flex-start;
+  background-color: #0084FF; /* Blue background for bot messages */
+}
+
+.user-message, .bot-message {
+  word-wrap: break-word; /* Ensures long words do not overflow */
+}
+
+.micbtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.listening-text {
+  margin-top: 10px;
+}
+
+.mic-icon {
+  width: 100px;
+  height: 100px;
+}
+
+
 .done5 {
   margin: 0;
 }
@@ -413,13 +453,6 @@
   right: 33.33%;
   bottom: 35.44%;
   left: 33.33%;
-  z-index: 4;
-}
-
-.micbtn {
-  height: 79px;
-  width: 99px;
-  position: relative;
   z-index: 4;
 }
 
