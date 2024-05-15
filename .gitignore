@@ -38,3 +38,4 @@ backend/Include
 backend/Scripts
 backend/share
 backend/Library
+backend/.env
