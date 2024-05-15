@@ -75,8 +75,9 @@ const SelectionThree = () => {
   const handleSendMessage = (text) => {
     if (text.trim()) {
       const message = { type: "user", text: text };
-      setChat([...chat, message]); // Add user message to chat
-      rasaAPI(text); // Call the function to send data to your API
+      setChat([...chat, message]);
+      speak(text);
+      rasaAPI(text);
     }
   };
 
@@ -91,17 +92,27 @@ const SelectionThree = () => {
         body: JSON.stringify({ sender: "user", msg: msg }),
       }).then((res) => res.json());
 
-      console.log("Received response:", response); // Log full response
+      console.log("Received response:", response); 
 
       const botMessage = {
         type: "bot",
         text: response.msg || "No response from server",
       };
-      console.log("Bot response:", botMessage.text); // Logging the bot response
-      setChat((prevChat) => [...prevChat, botMessage]); // Add bot response to chat
+      console.log("Bot response:", botMessage.text);
+      setChat((prevChat) => [...prevChat, botMessage]);
+      speak(botMessage.text);
     } catch (error) {
       console.error("Error fetching from Rasa API:", error);
     }
+  };
+
+  const speak = (text) => {
+    const speechSynthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.pitch = 1.2;
+    utterance.volume = 1;
+    utterance.rate = 1;
+    speechSynthesis.speak(utterance);
   };
 
   return (
@@ -158,7 +169,7 @@ const SelectionThree = () => {
           </section>
         </Row>
 
-        <Row style={{ height: "75%", width: "100%" }}>
+        <Row style={{ height: "65%", width: "100%", overflowY: 'auto' }}>
           {chat.map((msg, index) => (
             <Row
               key={index}
