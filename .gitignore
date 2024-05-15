@@ -1,9 +1,8 @@
-
 # Dependencies
-/node_modules
+frontend/node_modules
 
 # Production
-/build
+frontend/build
 
 # Misc
 .DS_Store
@@ -13,23 +12,29 @@
 .env.production.local
 
 # Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
 
 # Runtime data
-pids
-*.pid
-*.seed
-*.log
+frontend/pids
+frontend/*.pid
+frontend/*.seed
+frontend/*.log
 
 # Editor directories and files
-.idea
-.vscode/
-*.swp
-*.swo
-*.swn
+frontend/.idea
+frontend/.vscode/
+frontend/*.swp
+frontend/*.swo
+frontend/*.swn
 
 # OS-specific
 Thumbs.db
-  
+
+# Backend
+backend/Lib
+backend/Include
+backend/Scripts
+backend/share
+backend/Library
