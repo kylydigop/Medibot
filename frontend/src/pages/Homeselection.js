@@ -1,9 +1,9 @@
 import { useCallback, useEffect } from "react";
-import FRAMEParent from "../components/FRAMEParent";
 import { useNavigate } from "react-router-dom";
-import "./Homeselection.css";
+import PropTypes from 'prop-types';
+import styles from "./Homeselection.module.css";
 
-const Homeselection = () => {
+const Homeselection = ({ className = "" }) => {
   const navigate = useNavigate();
 
   // Function to speak the given text
@@ -16,7 +16,7 @@ const Homeselection = () => {
     speechSynthesis.speak(utterance);
   };
 
-  // Voice over sa Homescreen.
+  // Voice over for the Homescreen.
   useEffect(() => {
     const utteranceText = "Welcome to Medi Sation, your companion on the journey to well-being... Press 1 if you want to measure Temperature... Press 2 if you want to measure Oxygen and Pulse rate... Press 3 to Ask Question...";
     speak(utteranceText);
@@ -60,38 +60,73 @@ const Homeselection = () => {
   }, [navigate]);
 
   return (
-    <div className="homeselection">
-      <FRAMEParent />
-      <section className="homeselection-inner">
-        <div className="a-s-k-thermometer-parent">
-          <div className="a-s-k-thermometer">
-            <div className="frame-parent">
-              <div className="vital-signs-wrapper">
-                <h1 className="vital-signs">Vital Signs</h1>
-              </div>
-              <div className="note">{`Measure your vital signs by selecting options below `}</div>
-            </div>
+    <div className={[styles.homeselection, className].join(" ")}>
+      <section className={styles.rectangleParent}>
+        <header className={styles.frameChild} />
+        <div className={styles.logonew1Parent}>
+          <img className={styles.logonew1Icon} alt="" src="/logonew.png" />
+          <div className={styles.healthKioskWrapper}>
+            <h1 className={styles.healthKiosk}>MediSation</h1>
           </div>
-          <div className="temp-parent-container-parent">
-            <div className="temp-parent-container">
-              <div className="temp" onClick={onTempContainerClick}>
-                <div className="circle-symbol">
-                  <div className="circle" />
+        </div>
+        <div className={styles.aboutParent}>
+          <img
+            className={styles.aboutIcon}
+            loading="lazy"
+            alt=""
+            src="/about.svg"
+          />
+          <div className={styles.aboutWrapper}>
+            <a className={styles.about}>ABOUT</a>
+          </div>
+        </div>
+      </section>
+      <section className={styles.homeselectionInner}>
+        <div className={styles.frameParent}>
+          <div className={styles.frameGroup}>
+            <div className={styles.frameWrapper}>
+              <div className={styles.frameContainer}>
+                <div className={styles.vitalSignsWrapper}>
+                  <h1 className={styles.vitalSigns}>Vital Signs</h1>
+                </div>
+                <div
+                  className={styles.note}
+                >{`Measure your vital signs by selecting options below `}</div>
+              </div>
+            </div>
+            <div className={styles.frameDiv}>
+              <div className={styles.tempWrapper}>
+                <div className={styles.temp} onClick={onTempContainerClick}>
+                  <div className={styles.circleParent}>
+                    <div className={styles.circle} />
+                    <img
+                      className={styles.thermometerIcon}
+                      loading="lazy"
+                      alt=""
+                      src="/thermometer.svg"
+                    />
+                  </div>
+                  <b className={styles.temperature}>Temperature</b>
+                </div>
+              </div>
+              <div className={styles.frameWrapper1}>
+                <div className={styles.circleGroup}>
                   <img
-                    className="thermometer-icon"
+                    className={styles.circleIcon}
                     loading="lazy"
                     alt=""
-                    src="/thermometer.svg"
+                    src="/2circle@2x.png"
+                    onClick={onCircleImageClick}
                   />
+                  <b className={styles.ask}>ASK?</b>
                 </div>
-                <b className="temperature">Temperature</b>
               </div>
-              <div className="o2-sat" onClick={onO2SatContainerClick}>
-                <img className="frame-icon" alt="" src="/frame.svg" />
-                <div className="heart-label">
-                  <div className="o2">Pulse Oximeter</div>
+              <div className={styles.o2Sat} onClick={onO2SatContainerClick}>
+                <img className={styles.frameIcon} alt="" src="/frame.svg" />
+                <div className={styles.o2Parent}>
+                  <div className={styles.o2}>Pulse Oximeter</div>
                   <img
-                    className="lungs-icon"
+                    className={styles.lungsIcon}
                     loading="lazy"
                     alt=""
                     src="/lungs@2x.png"
@@ -99,27 +134,21 @@ const Homeselection = () => {
                 </div>
               </div>
             </div>
-            <div className="ask-question-symbol">
-              <img
-                className="circle-icon"
-                loading="lazy"
-                alt=""
-                src="/2circle@2x.png"
-                onClick={onCircleImageClick}
-              />
-              <b className="ask">ASK?</b>
-            </div>
           </div>
-          <footer className="note-temperature-and-oxygen-s-wrapper">
-            <div className="note-temperature-and">
+          <div className={styles.noteTemperatureAndOxygenSWrapper}>
+            <p className={styles.noteTemperatureAnd}>
               NOTE: Temperature and Oxygen Saturation have their own individual
               sensors.
-            </div>
-          </footer>
+            </p>
+          </div>
         </div>
       </section>
     </div>
   );
+};
+
+Homeselection.propTypes = {
+  className: PropTypes.string,
 };
 
 export default Homeselection;

@@ -1,0 +1,381 @@
+.frameChild {
+  height: 90px;
+  width: 1024px;
+  position: relative;
+  background-color: var(--color-darkslategray-100);
+  display: none;
+  max-width: 100%;
+}
+.logonew1Icon {
+  height: 89px;
+  width: 96px;
+  position: relative;
+  object-fit: cover;
+  z-index: 1;
+}
+.healthKiosk {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  font-size: inherit;
+  font-weight: 900;
+  font-family: inherit;
+  z-index: 1;
+}
+.healthKioskWrapper,
+.logonew1Parent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.healthKioskWrapper {
+  flex: 1;
+  flex-direction: column;
+  padding: 22.5px 0 0;
+  box-sizing: border-box;
+  min-width: 153px;
+}
+.logonew1Parent {
+  margin-top: -20.5px;
+  width: 345px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 14px;
+  max-width: calc(100% - 138px);
+}
+.about,
+.aboutIcon {
+  position: relative;
+  z-index: 1;
+}
+.aboutIcon {
+  height: 48px;
+  width: 48px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.about {
+  text-decoration: none;
+  align-self: stretch;
+  font-weight: 700;
+  color: inherit;
+}
+.aboutWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 8px 0 0;
+}
+.aboutParent,
+.rectangleParent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.aboutParent {
+  width: 118px;
+  justify-content: flex-start;
+  text-align: center;
+  font-size: var(--font-size-base);
+}
+.rectangleParent {
+  align-self: stretch;
+  height: 89px;
+  background-color: var(--color-darkslategray-100);
+  justify-content: space-between;
+  padding: var(--padding-xl) var(--padding-4xl) 0.5px 46px;
+  box-sizing: border-box;
+  max-width: 100%;
+  gap: 20px;
+  text-align: left;
+  font-size: var(--font-size-17xl);
+  color: var(--color-white);
+  font-family: var(--font-inter);
+}
+.vitalSigns {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 900;
+  font-family: inherit;
+}
+.vitalSignsWrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 21px 0 var(--padding-xl);
+}
+.note {
+  position: relative;
+  font-size: 20px;
+  font-weight: 900;
+  color: #424242;
+}
+.frameContainer,
+.frameWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.frameContainer {
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+.frameWrapper {
+  width: 649px;
+  flex-direction: row;
+  padding: 0 66px;
+  box-sizing: border-box;
+}
+.circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background-color: #00b3ff;
+  width: 100%;
+  height: 100%;
+}
+.thermometerIcon {
+  position: absolute;
+  top: 23.4px;
+  left: 41.8px;
+  width: 106.6px;
+  height: 104.4px;
+  overflow: hidden;
+  z-index: 1;
+}
+.circleParent,
+.temperature {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.temperature {
+  top: 128.6px;
+  left: 29.8px;
+  font-weight: 700;
+  display: inline-block;
+  width: 131.3px;
+  height: 20px;
+  z-index: 1;
+}
+.temp {
+  align-self: stretch;
+  height: 187px;
+  position: relative;
+  cursor: pointer;
+}
+.tempWrapper {
+  width: 207px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 16px 0 0;
+  box-sizing: border-box;
+}
+.circleIcon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.ask {
+  position: absolute;
+  top: 37px;
+  left: 167.03px;
+  font-weight: 700;
+  display: inline-block;
+  width: 63.5px;
+  height: 19px;
+  transform: rotate(0.1deg);
+  transform-origin: 0 0;
+  z-index: 1;
+}
+.circleGroup {
+  align-self: stretch;
+  height: 256px;
+  position: relative;
+}
+.frameWrapper1 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 0 1px;
+  box-sizing: border-box;
+  min-width: 171px;
+}
+.frameIcon {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  margin: 0 !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.o2 {
+  flex: 1;
+  position: relative;
+  font-weight: 900;
+  z-index: 1;
+}
+.lungsIcon {
+  height: 134px;
+  width: 154.9px;
+  position: absolute;
+  margin: 0 !important;
+  top: -112.3px;
+  left: -62px;
+  overflow: hidden;
+  flex-shrink: 0;
+  object-fit: contain;
+  z-index: 2;
+}
+.o2Parent,
+.o2Sat {
+  width: 136.6px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+}
+.o2Sat {
+  width: 213px;
+  justify-content: flex-end;
+  padding: 129px 14px 38px;
+  box-sizing: border-box;
+  cursor: pointer;
+  z-index: 1;
+  text-align: left;
+}
+.frameDiv,
+.frameGroup {
+  display: flex;
+  justify-content: flex-start;
+}
+.frameDiv {
+  align-self: stretch;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  row-gap: 20px;
+  text-align: center;
+  font-size: var(--font-size-base);
+}
+.frameGroup {
+  width: 683px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+  max-width: 100%;
+}
+.noteTemperatureAnd {
+  margin: 0;
+  width: 652px;
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  flex-shrink: 0;
+  max-width: 100%;
+}
+.frameParent,
+.noteTemperatureAndOxygenSWrapper {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.noteTemperatureAndOxygenSWrapper {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: flex-end;
+  font-size: var(--font-size-base);
+  color: rgba(114, 114, 114, 0.5);
+}
+.frameParent {
+  width: 700px;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 51px;
+}
+.homeselection,
+.homeselectionInner {
+  max-width: 100%;
+  display: flex;
+  box-sizing: border-box;
+}
+.homeselectionInner {
+  width: 980px;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+  text-align: left;
+  font-size: var(--font-size-17xl);
+  color: var(--dark);
+  font-family: var(--font-inter);
+}
+.homeselection {
+  width: 1024px;
+  background-color: var(--color-white);
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 0 0 70px;
+  gap: 28px;
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 750px) {
+  .healthKiosk,
+  .vitalSigns {
+    font-size: var(--font-size-10xl);
+  }
+  .frameParent {
+    gap: 25px;
+  }
+}
+@media screen and (max-width: 675px) {
+  .frameWrapper,
+  .rectangleParent {
+    padding-left: var(--padding-4xl);
+    box-sizing: border-box;
+  }
+  .frameWrapper {
+    padding-left: var(--padding-14xl);
+    padding-right: var(--padding-14xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .healthKiosk {
+    font-size: var(--font-size-3xl);
+  }
+  .rectangleParent {
+    height: auto;
+  }
+  .vitalSigns {
+    font-size: var(--font-size-3xl);
+  }
+  .note {
+    font-size: var(--font-size-base);
+  }
+}
