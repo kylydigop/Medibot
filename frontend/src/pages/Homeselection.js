@@ -1,10 +1,12 @@
-import { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 import styles from "./Homeselection.module.css";
 
 const Homeselection = ({ className = "" }) => {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [nextPath, setNextPath] = useState("");
 
   // Function to speak the given text
   const speak = (text) => {
@@ -24,11 +26,11 @@ const Homeselection = ({ className = "" }) => {
     // Add event listener for keydown event to listen for number pad keys
     const handleKeyPress = (event) => {
       if (event.key === "1") {
-        navigate("/selectionone");
+        handleNavigation("/selectionone");
       } else if (event.key === "2") {
-        navigate("/selectiontwo");
+        handleNavigation("/selectiontwo");
       } else if (event.key === "3") {
-        navigate("/selectionthree");
+        handleNavigation("/selectionthree");
       }
     };
 
@@ -38,7 +40,7 @@ const Homeselection = ({ className = "" }) => {
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     // Cancel speech synthesis when navigating away
@@ -47,17 +49,32 @@ const Homeselection = ({ className = "" }) => {
     };
   }, []);
 
+  const handleNavigation = (path) => {
+    setNextPath(path);
+    setShowModal(true);
+  };
+
   const onTempContainerClick = useCallback(() => {
-    navigate("/selectionone");
-  }, [navigate]);
+    handleNavigation("/selectionone");
+  }, []);
 
   const onO2SatContainerClick = useCallback(() => {
-    navigate("/selectiontwo");
-  }, [navigate]);
+    handleNavigation("/selectiontwo");
+  }, []);
 
   const onCircleImageClick = useCallback(() => {
-    navigate("/selectionthree");
-  }, [navigate]);
+    handleNavigation("/selectionthree");
+  }, []);
+
+  const handleConfirm = () => {
+    setShowModal(false);
+    navigate(nextPath);
+  };
+
+  const handleCancel = () => {
+    setShowModal(false);
+    setNextPath("");
+  };
 
   return (
     <div className={[styles.homeselection, className].join(" ")}>
@@ -67,17 +84,6 @@ const Homeselection = ({ className = "" }) => {
           <img className={styles.logonew1Icon} alt="" src="/logonew.png" />
           <div className={styles.healthKioskWrapper}>
             <h1 className={styles.healthKiosk}>MediSation</h1>
-          </div>
-        </div>
-        <div className={styles.aboutParent}>
-          <img
-            className={styles.aboutIcon}
-            loading="lazy"
-            alt=""
-            src="/about.svg"
-          />
-          <div className={styles.aboutWrapper}>
-            <a className={styles.about}>ABOUT</a>
           </div>
         </div>
       </section>
@@ -143,6 +149,16 @@ const Homeselection = ({ className = "" }) => {
           </div>
         </div>
       </section>
+
+      {showModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <p>Are you sure you want to proceed?</p>
+            <button onClick={handleConfirm}>Yes</button>
+            <button onClick={handleCancel}>No</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

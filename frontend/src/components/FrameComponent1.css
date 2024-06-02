@@ -84,6 +84,7 @@
   min-width: 51px;
   cursor: pointer;
   z-index: 3;
+  padding-top: 15px;
 }
 .home-button {
   width: 56px;
@@ -167,4 +168,46 @@
     padding-left: var(--padding-4xl);
     box-sizing: border-box;
   }
+}
+
+
+.frame-header {
+  align-self: stretch;
+  background-color: var(--color-darkslategray-100);
+  flex-direction: row;
+  align-items: center; /* Center the items vertically */
+  justify-content: space-between;
+  padding: var(--padding-9xs) var(--padding-mini) var(--padding-7xs) var(--padding-27xl);
+  top: 0;
+  z-index: 99;
+  position: sticky;
+  max-width: 100%;
+  gap: var(--gap-xl);
+  text-align: left;
+  font-size: var(--font-size-17xl);
+  color: var(--color-white);
+  font-family: var(--font-inter);
+}
+
+.speech-language-therapy-container {
+  display: flex;
+  align-items: center; /* Center the items vertically */
+  justify-content: flex-start;
+  gap: var(--gap-sm);
+}
+
+.home-2-streamline-coresvg-container,
+.home-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.frame-wrapper4 {
+  display: flex;
+  flex-direction: row; /* Change to row to align items horizontally */
+  align-items: center; /* Center the items vertically */
+  justify-content: flex-end; /* Align to the right */
+  gap: var(--gap-xs); /* Add some gap between items */
+  padding-right: var(--padding-mini); /* Adjust padding if needed */
 }
