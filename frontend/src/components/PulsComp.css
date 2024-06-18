@@ -103,4 +103,50 @@
       font-size: var(--font-size-5xl);
     }
   }
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    font-family: var(--font-inter);
+    color: var(--dark);
+  }
   
+  .modalContent {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 800px; /* Increase the width */
+    max-width: 90%; /* Ensure it is responsive */
+  }
+  
+  .modalContent p {
+    margin-bottom: 30px; /* Increase the bottom margin */
+    font-size: 34px; /* Increase the font size */
+    font-weight: 700;
+    font-family: var(--font-inter);
+  }
+  
+  .modalContent button {
+    margin: 0 15px; /* Increase the margin */
+    padding: 15px 30px; /* Increase the padding */
+    border: none;
+    border-radius: 4px;
+    background-color: #00b3ff;
+    color: white;
+    cursor: pointer;
+    font-size: 30px; /* Increase the font size */
+    font-family: var(--font-inter);
+  }
+  
+  .modalContent button:hover {
+    background-color: #0099cc;
+  }
