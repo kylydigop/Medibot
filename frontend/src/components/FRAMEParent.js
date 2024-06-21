@@ -32,14 +32,14 @@ const FRAMEParent = () => {
           <h1 className="health-kiosk1">MediSation</h1>
         </div>
       </div>
-      <div className="f-r-a-m-e-parent-inner">
+      {/* <div className="f-r-a-m-e-parent-inner">
         <div className="about-parent" onClick={onAboutParentClick}>
           <img className="about-icon1" loading="lazy" alt="" src="/about.svg" />
           <div className="about-container">
             <b className="about1">ABOUT</b>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

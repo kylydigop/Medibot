@@ -125,8 +125,8 @@ const SelectionThree = () => {
               <button className="speech-language-therapy">
                 <img
                   className="logonew"
-                  alt=""
-                  src="/logonew.png"
+                  alt="logo"
+                  src="/logonew.png"  // Using the correct absolute path
                   onClick={onHome2StreamlineCoresvgClick}
                 />
               </button>

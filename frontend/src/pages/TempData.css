@@ -149,8 +149,8 @@
   height: 20px;
 }
 .home3-tpone {
-  top: 31px;
-  left: 829px;
+  top: 35px;
+  left: 92%;
   width: 51px;
   min-width: 51px;
   cursor: pointer;
@@ -162,7 +162,7 @@
   top: 2.95%;
   right: 19.53%;
   bottom: 89.62%;
-  left: 75.49%;
+  left: 87%;
   max-width: 100%;
   overflow: hidden;
   max-height: 100%;
@@ -194,7 +194,7 @@
 .health-kiosk4-tpone {
   margin: 0;
   position: absolute;
-  top: 17px;
+  top: 20px;
   left: 94px;
   font-size: inherit;
   font-weight: 900;

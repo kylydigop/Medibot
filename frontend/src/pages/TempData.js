@@ -12,7 +12,7 @@ const TempData = () => {
   useEffect(() => {
     setLoading(true);
     speak("Processing.... Please do not remove your finger while getting the result.");
-    fetchTemperatureData(); 
+    fetchTemperatureData();
   }, []);
 
   const fetchTemperatureData = async () => {
@@ -114,22 +114,17 @@ const TempData = () => {
           <div className="done4-tpone">
             <p className="done5-tpone">DONE</p>
           </div>
-          <img
-            className="vector-icon5-tpone"
-            loading="lazy"
-            alt=""
-            src="/about.svg"
-          />
-          <b className="about3-tpone">ABOUT</b>
-          <b className="home3-tpone" onClick={onHOMETextClick}>
-            HOME
-          </b>
-          <img
-            className="home-2-streamline-coresvg-icon3-tpone"
-            loading="lazy"
-            alt=""
-            src="/home2streamlinecoresvg1.svg"
-          />
+          <div className="home-container">
+            <img
+              className="home-2-streamline-coresvg-icon3-tpone"
+              loading="lazy"
+              alt="home icon"
+              src="/home2streamlinecoresvg1.svg"
+            />
+            <b className="home3-tpone" onClick={onHOMETextClick}>
+              HOME
+            </b>
+          </div>
           <div className="group-div-tpone">
             <button className="speech-language-therapy3-tpone">
               <img

@@ -38,6 +38,7 @@
   font-family: inherit;
   white-space: nowrap;
   z-index: 3;
+  bottom: 6px;
 }
 .health-kiosk-title,
 .speech-language-therapy-container {
