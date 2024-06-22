@@ -5,19 +5,21 @@ import { PuffLoader } from "react-spinners";
 
 const TempData = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [temperature, setTemperature] = useState(null);
   const [temperatureCategory, setTemperatureCategory] = useState(null);
+  const [spoken, setSpoken] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     speak("Processing.... Please do not remove your finger while getting the result.");
-    fetchTemperatureData();
+    setTimeout(() => {
+      fetchTemperatureData();
+    }, 10000); // Wait for 10 seconds before starting to fetch the temperature data
   }, []);
 
   const fetchTemperatureData = async () => {
     try {
-      const response = await fetch("http://192.168.137.10/tempdata");
+      const response = await fetch("http://192.168.100.250/tempdata");
       if (!response.ok) {
         throw new Error("Failed to fetch temperature data");
       }
@@ -26,10 +28,11 @@ const TempData = () => {
       setTemperature(tempAvg);
       const category = getTemperatureCategory(tempAvg); // Determine temperature category
       setTemperatureCategory(category);
-      setTimeout(() => {
+      if (!spoken) {
         speak(`Your Vital Sign Result in Temperature is ${tempAvg} degree Celsius. ${category}`);
-        setLoading(false);
-      }, 8000);
+        setSpoken(true);
+      }
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching temperature data:", error);
       setLoading(false);
@@ -38,14 +41,18 @@ const TempData = () => {
 
   const getTemperatureCategory = (temp) => {
     const temperatureValue = parseFloat(temp);
-    if (temperatureValue < 35.9) {
-      return "Lower than Normal";
-    } else if (temperatureValue >= 36.0 && temperatureValue <= 37.0) {
+    if (temperatureValue < 32.4) {
+      return "Below Normal";
+    } else if (temperatureValue >= 32.5 && temperatureValue <= 37.4) {
       return "Normal";
-    } else if (temperatureValue >= 37.1 && temperatureValue <= 38.0) {
+    } else if (temperatureValue >= 37.5 && temperatureValue <= 38.0) {
       return "Higher than Normal";
-    } else if (temperatureValue >= 38.1) {
-      return "Fever";
+    } else if (temperatureValue >= 38.1 && temperatureValue <= 38.5) {
+      return "Mild fever";
+    } else if (temperatureValue >= 38.6 && temperatureValue <= 39.0) {
+      return "Moderate fever";
+    } else if (temperatureValue >= 39.2) {
+      return "High Fever";
     } else {
       return "Error Try Again.";
     }
