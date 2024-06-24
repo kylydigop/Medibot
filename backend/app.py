@@ -67,31 +67,36 @@ def make_serializable(obj):
     else:
         return str(obj)
 
-@app.route("/chat", methods=["POST"])
+@app.route("/chat", methods=["POST", "DELETE"])
 async def chat():
     try:
-        data = request.get_json()
-        print("Received data:", data)
+        if request.method == "POST":
+            data = request.get_json()
+            print("Received data:", data)
 
-        question = data['msg']
-        chat_history = session.get('chat_history', [])
+            question = data['msg']
+            chat_history = session.get('chat_history', [])
 
-        # Deserialize chat history
-        deserialized_history = deserialize_history(chat_history)
+            # Deserialize chat history
+            deserialized_history = deserialize_history(chat_history)
 
-        # Add current question to the history for processing
-        deserialized_history.append({"question": question})
+            # Add current question to the history for processing
+            deserialized_history.append({"question": question})
 
-        # Generate the answer using the chain
-        result = await chain.ainvoke({"question": question, "history": deserialized_history})
+            # Generate the answer using the chain
+            result = await chain.ainvoke({"question": question, "history": deserialized_history})
 
-        # Update the chat history with the answer
-        deserialized_history[-1]["answer"] = result
+            # Update the chat history with the answer
+            deserialized_history[-1]["answer"] = result
 
-        # Store the serialized chat history in the session
-        session['chat_history'] = serialize_history(deserialized_history)
+            # Store the serialized chat history in the session
+            session['chat_history'] = serialize_history(deserialized_history)
 
-        return jsonify({"msg": make_serializable(result)})
+            return jsonify({"msg": make_serializable(result)})
+        elif request.method == "DELETE":
+            session.pop('chat_history', None)
+            memory.clear()
+            return jsonify({"msg": "Chat history cleared"})
     except Exception as e:
         print("Error processing request:", e)
         traceback.print_exc()

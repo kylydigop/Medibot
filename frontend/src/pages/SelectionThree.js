@@ -22,8 +22,20 @@ const SelectionThree = () => {
     navigate("/");
   }, [navigate]);
 
-  const onHOMETextClick = useCallback(() => {
-    navigate("/");
+  const onHOMETextClick = useCallback(async () => {
+    try {
+      await fetch("http://localhost:5000/chat", {
+        method: "DELETE",
+      });
+      setChat([
+        { type: "bot", text: "Hello there! Ask me any of your medical queries!" },
+      ]);
+      navigate("/");
+    } catch (error) {
+      console.error("Error clearing chat history:", error);
+      // You can navigate to the home page even if the API call fails if needed
+      navigate("/");
+    }
   }, [navigate]);
 
   useEffect(() => {
@@ -92,11 +104,14 @@ const SelectionThree = () => {
         body: JSON.stringify({ sender: "user", msg: msg }),
       }).then((res) => res.json());
 
-      console.log("Received response:", response); 
+      console.log("Received response:", response);
+
+      // Clean the response text by removing '\n'
+      const cleanedText = response.msg.text.replace(/\n/g, '');
 
       const botMessage = {
         type: "bot",
-        text: response.msg || "No response from server",
+        text: cleanedText || "No response from server",
       };
       console.log("Bot response:", botMessage.text);
       setChat((prevChat) => [...prevChat, botMessage]);
