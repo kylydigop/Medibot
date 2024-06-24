@@ -527,3 +527,8 @@
     font-size: var(--font-size-3xl);
   }
 }
+
+.logonew {
+  width: 90px; /* Adjust size as needed */
+  height: 90px; /* Maintain aspect ratio */
+}

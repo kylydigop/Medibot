@@ -21,25 +21,19 @@ const FrameComponent1 = ({
         </div>
       </div>
       <div className="frame-wrapper4">
-        <div className="frame-parent6">
-          <div className="home-2-streamline-coresvg-container">
-            <img
-              className="home-2-streamline-coresvg-icon1"
-              loading="lazy"
-              alt=""
-              src="/home2streamlinecoresvg.svg"
-              
-            />
-          </div>
-          <div className="home-button">
-            <b className="home1" onClick={onHOMETextClick}>
-              HOME
-            </b>
-          </div>
-          <img className="about-icon2" loading="lazy" alt="" src="/about.svg" />
-          <div className="about-title">
-            <b className="about2">ABOUT</b>
-          </div>
+        <div className="home-2-streamline-coresvg-container">
+          <img
+            className="home-2-streamline-coresvg-icon1"
+            loading="lazy"
+            alt=""
+            src="/home2streamlinecoresvg.svg"
+            onClick={onHome2StreamlineCoresvgClick} /* Added onClick */
+          />
+        </div>
+        <div className="home-button">
+          <b className="home1" onClick={onHOMETextClick}>
+            HOME
+          </b>
         </div>
       </div>
     </header>

@@ -9,6 +9,21 @@ const TempComp = ({
 }) => {
   const gifRef = useRef(null);
   const [loaded, setLoaded] = useState(false); // Flag to track whether the GIF has been loaded
+  const [showModal, setShowModal] = useState(false); // State to manage the modal visibility
+
+  // Function to handle speech synthesis
+  const speak = (text) => {
+    const speechSynthesis = window.speechSynthesis;
+    // Stop any ongoing speech
+    if (speechSynthesis.speaking) {
+      speechSynthesis.cancel();
+    }
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.pitch = 1.2;
+    utterance.volume = 1;
+    utterance.rate = 0.9;
+    speechSynthesis.speak(utterance);
+  };
 
   useEffect(() => {
     let observer;
@@ -43,6 +58,25 @@ const TempComp = ({
     };
   }, [loaded]); // Add loaded as a dependency to update the effect when it changes
 
+  const handleStartClick = () => {
+    setShowModal(true); // Show the modal when START is clicked
+  };
+
+  useEffect(() => {
+    if (showModal) {
+      speak("Are you sure you want to proceed? Press one to confirm, press two to cancel.");
+    }
+  }, [showModal]);
+
+  const handleConfirm = () => {
+    setShowModal(false); // Hide the modal
+    onGroupContainer1Click(); // Call the provided function
+  };
+
+  const handleCancel = () => {
+    setShowModal(false); // Hide the modal
+  };
+
   return (
     <div className="frame-parent7">
       <div className="vector-parent">
@@ -51,10 +85,20 @@ const TempComp = ({
         
         <img className="rectangle-icon" alt="" src="/rectangle-9.svg" />  
       </div>
-      <div className="group-div" onClick={onGroupContainer1Click}>
+      <div className="group-div" onClick={handleStartClick}>
         <div className="frame-child4" />
         <h1 className="start">START</h1>
       </div>
+
+      {showModal && (
+        <div className="modal">
+          <div className="modalContent">
+            <p>Are you sure you want to proceed?</p>
+            <button onClick={handleConfirm}>Yes</button>
+            <button onClick={handleCancel}>No</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,3 +1,5 @@
+/* Combined CSS */
+.frame-child,
 .f-r-a-m-e-parent-child {
   height: 90px;
   width: 1024px;
@@ -6,6 +8,15 @@
   display: none;
   max-width: 100%;
 }
+
+.logonew-1-icon {
+  height: 89px;
+  width: 96px;
+  position: relative;
+  object-fit: cover;
+  z-index: 1;
+}
+
 .logomedisation-1-icon {
   align-self: stretch;
   flex: 1;
@@ -15,17 +26,18 @@
   max-height: 100%;
   object-fit: cover;
 }
+
 .vector-icon4 {
   width: 60px;
   height: 60px;
   position: relative;
   display: none;
 }
+
 .speech-language-therapy1 {
   cursor: pointer;
   border: 0;
-  padding: var(--padding-10xs) var(--padding-5xs) var(--padding-9xs)
-    var(--padding-4xs);
+  padding: var(--padding-10xs) var(--padding-5xs) var(--padding-9xs) var(--padding-4xs);
   background-color: transparent;
   height: 80px;
   width: 80px;
@@ -38,6 +50,8 @@
   box-sizing: border-box;
   z-index: 1;
 }
+
+.health-kiosk,
 .health-kiosk1 {
   margin: 0;
   align-self: stretch;
@@ -47,80 +61,97 @@
   font-family: inherit;
   z-index: 1;
 }
+
+.health-kiosk-wrapper,
 .health-kiosk-container,
+.logonew-1-parent,
 .speech-language-therapy-group {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
 }
+
+.health-kiosk-wrapper,
 .health-kiosk-container {
   flex: 1;
   flex-direction: column;
-  padding: var(--padding-lg) 0 0;
+  padding: var(--padding-3xl-5) 0 0;
   box-sizing: border-box;
   min-width: 153px;
 }
+
+.health-kiosk-container {
+  padding: var(--padding-lg) 0 0;
+}
+
+.logonew-1-parent,
 .speech-language-therapy-group {
-  width: 329px;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: var(--gap-sm);
   max-width: 100%;
 }
-.about-icon1,
+
+.logonew-1-parent {
+  margin-top: -20.5px;
+  width: 345px;
+  max-width: calc(100% - 138px);
+}
+
+.speech-language-therapy-group {
+  width: 329px;
+}
+
+.about,
 .about1 {
+  align-self: stretch;
   position: relative;
-  flex-shrink: 0;
   z-index: 1;
 }
+
+.about-icon,
 .about-icon1 {
   height: 48px;
   width: 48px;
   overflow: hidden;
+  flex-shrink: 0;
+  z-index: 1;
 }
-.about1 {
-  align-self: stretch;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.about-container,
-.about-parent {
+
+.about-wrapper,
+.about-container {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-}
-.about-container {
-  flex-direction: column;
   padding: var(--padding-5xs) 0 0;
 }
-.about-parent {
-  align-self: stretch;
-  flex-direction: row;
-}
-.f-r-a-m-e-parent,
-.f-r-a-m-e-parent-inner {
+
+.about-parent,
+.about-wrapper {
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
-  box-sizing: border-box;
 }
+
+.about-parent,
 .f-r-a-m-e-parent-inner {
-  height: 64px;
   width: 118px;
-  flex-direction: column;
   justify-content: flex-start;
-  padding: var(--padding-base) 0 0;
   text-align: center;
   font-size: var(--font-size-base);
 }
-.f-r-a-m-e-parent {
+
+.f-r-a-m-e-parent,
+.rectangle-parent {
   align-self: stretch;
-  background-color: var(--color-darkslategray-100);
+  display: flex;
   flex-direction: row;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: var(--padding-9xs) var(--padding-4xl) var(--padding-8xs)
-    var(--padding-27xl);
+  background-color: var(--color-darkslategray-100);
+  padding: var(--padding-9xs) var(--padding-4xl) var(--padding-8xs) var(--padding-27xl);
   max-width: 100%;
   gap: var(--gap-xl);
   text-align: left;
@@ -128,22 +159,47 @@
   color: var(--color-white);
   font-family: var(--font-inter);
 }
+
+.f-r-a-m-e-parent-inner {
+  height: 64px;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--padding-base) 0 0;
+}
+
+.rectangle-parent {
+  height: 89px;
+  justify-content: space-between;
+  padding: var(--padding-xl) var(--padding-4xl) var(--padding-12xs-5) var(--padding-27xl);
+  box-sizing: border-box;
+}
+
 @media screen and (max-width: 750px) {
+  .health-kiosk,
   .health-kiosk1 {
     font-size: var(--font-size-10xl);
   }
 }
+
 @media screen and (max-width: 675px) {
-  .f-r-a-m-e-parent {
+  .f-r-a-m-e-parent,
+  .rectangle-parent {
     flex-wrap: wrap;
     padding-left: var(--padding-4xl);
     box-sizing: border-box;
   }
 }
+
 @media screen and (max-width: 450px) {
+  .health-kiosk,
   .health-kiosk1 {
     font-size: var(--font-size-3xl);
   }
+  
+  .rectangle-parent {
+    height: auto;
+  }
+  
   .speech-language-therapy-group {
     flex-wrap: wrap;
   }
@@ -157,6 +213,4 @@
   max-width: 100%;
   top: 3px;
   left: 8px;
-  
-  
 }

@@ -1,14 +1,20 @@
-import { useCallback, useEffect } from "react";
-import FRAMEParent from "../components/FRAMEParent";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Homeselection.css";
+import PropTypes from 'prop-types';
+import styles from "./Homeselection.module.css";
 
-const Homeselection = () => {
+const Homeselection = ({ className = "" }) => {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [nextPath, setNextPath] = useState("");
 
-  // Function to speak the given text
+  // Function to handle speech synthesis
   const speak = (text) => {
     const speechSynthesis = window.speechSynthesis;
+    // Stop any ongoing speech
+    if (speechSynthesis.speaking) {
+      speechSynthesis.cancel();
+    }
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.pitch = 1.2;
     utterance.volume = 1;
@@ -16,29 +22,32 @@ const Homeselection = () => {
     speechSynthesis.speak(utterance);
   };
 
-  // Voice over sa Homescreen.
+  // Voice over for the Homescreen
   useEffect(() => {
-    const utteranceText = "Welcome to Medi Sation, your companion on the journey to well-being... Press 1 if you want to measure Temperature... Press 2 if you want to measure Oxygen and Pulse rate... Press 3 to Ask Question...";
+    const utteranceText = "Welcome to MediSation. Press one for temperature measurement... press two for questioning... press three for pulse measurement";
     speak(utteranceText);
 
-    // Add event listener for keydown event to listen for number pad keys
+    // Event listener for keydown event
     const handleKeyPress = (event) => {
       if (event.key === "1") {
-        navigate("/selectionone");
+        handleNavigation("/selectionone");
+        
       } else if (event.key === "2") {
-        navigate("/selectiontwo");
+        handleNavigation("/selectionthree");
+        
       } else if (event.key === "3") {
-        navigate("/selectionthree");
+        handleNavigation("/selectiontwo");
+        
       }
     };
 
     window.addEventListener("keydown", handleKeyPress);
 
-    // Cleanup function to remove event listener when component unmounts
+    // Cleanup function
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     // Cancel speech synthesis when navigating away
@@ -47,51 +56,96 @@ const Homeselection = () => {
     };
   }, []);
 
+  const handleNavigation = (path) => {
+    setNextPath(path);
+    setShowModal(true);
+  };
+
+  useEffect(() => {
+    if (showModal) {
+      speak("Are you sure you want to proceed?.. Press one to confirm... press two to cancel...");
+    }
+  }, [showModal]);
+  
   const onTempContainerClick = useCallback(() => {
-    navigate("/selectionone");
-  }, [navigate]);
+    handleNavigation("/selectionone");
+  }, []);
 
   const onO2SatContainerClick = useCallback(() => {
-    navigate("/selectiontwo");
-  }, [navigate]);
+    handleNavigation("/selectiontwo");
+  }, []);
 
   const onCircleImageClick = useCallback(() => {
-    navigate("/selectionthree");
-  }, [navigate]);
+    handleNavigation("/selectionthree");
+  }, []);
+
+  const handleConfirm = () => {
+    setShowModal(false);
+    navigate(nextPath);
+  };
+
+  const handleCancel = () => {
+    setShowModal(false);
+    setNextPath("");
+  };
 
   return (
-    <div className="homeselection">
-      <FRAMEParent />
-      <section className="homeselection-inner">
-        <div className="a-s-k-thermometer-parent">
-          <div className="a-s-k-thermometer">
-            <div className="frame-parent">
-              <div className="vital-signs-wrapper">
-                <h1 className="vital-signs">Vital Signs</h1>
-              </div>
-              <div className="note">{`Measure your vital signs by selecting options below `}</div>
-            </div>
+    <div className={[styles.homeselection, className].join(" ")}>
+      <section className={styles.rectangleParent}>
+        <header className={styles.frameChild} />
+        <div className={styles.logonew1Parent}>
+          <img className={styles.logonew1Icon} alt="" src="/logonew.png" />
+          <div className={styles.healthKioskWrapper}>
+            <h1 className={styles.healthKiosk}>MediSation</h1>
           </div>
-          <div className="temp-parent-container-parent">
-            <div className="temp-parent-container">
-              <div className="temp" onClick={onTempContainerClick}>
-                <div className="circle-symbol">
-                  <div className="circle" />
+        </div>
+      </section>
+      <section className={styles.homeselectionInner}>
+        <div className={styles.frameParent}>
+          <div className={styles.frameGroup}>
+            <div className={styles.frameWrapper}>
+              <div className={styles.frameContainer}>
+                <div className={styles.vitalSignsWrapper}>
+                  <h1 className={styles.vitalSigns}>Vital Signs</h1>
+                </div>
+                <div
+                  className={styles.note}
+                >{`Measure your vital signs by selecting options below `}</div>
+              </div>
+            </div>
+            <div className={styles.frameDiv}>
+              <div className={styles.tempWrapper}>
+                <div className={styles.temp} onClick={onTempContainerClick}>
+                  <div className={styles.circleParent}>
+                    <div className={styles.circle} />
+                    <img
+                      className={styles.thermometerIcon}
+                      loading="lazy"
+                      alt=""
+                      src="/thermometer.svg"
+                    />
+                  </div>
+                  <b className={styles.temperature}>Temperature</b>
+                </div>
+              </div>
+              <div className={styles.frameWrapper1}>
+                <div className={styles.circleGroup}>
                   <img
-                    className="thermometer-icon"
+                    className={styles.circleIcon}
                     loading="lazy"
                     alt=""
-                    src="/thermometer.svg"
+                    src="/2circle@2x.png"
+                    onClick={onCircleImageClick}
                   />
+                  <b className={styles.ask}>ASK?</b>
                 </div>
-                <b className="temperature">Temperature</b>
               </div>
-              <div className="o2-sat" onClick={onO2SatContainerClick}>
-                <img className="frame-icon" alt="" src="/frame.svg" />
-                <div className="heart-label">
-                  <div className="o2">Pulse Oximeter</div>
+              <div className={styles.o2Sat} onClick={onO2SatContainerClick}>
+                <img className={styles.frameIcon} alt="" src="/frame.svg" />
+                <div className={styles.o2Parent}>
+                  <div className={styles.o2}>Pulse Oximeter</div>
                   <img
-                    className="lungs-icon"
+                    className={styles.lungsIcon}
                     loading="lazy"
                     alt=""
                     src="/lungs@2x.png"
@@ -99,27 +153,31 @@ const Homeselection = () => {
                 </div>
               </div>
             </div>
-            <div className="ask-question-symbol">
-              <img
-                className="circle-icon"
-                loading="lazy"
-                alt=""
-                src="/2circle@2x.png"
-                onClick={onCircleImageClick}
-              />
-              <b className="ask">ASK?</b>
-            </div>
           </div>
-          <footer className="note-temperature-and-oxygen-s-wrapper">
-            <div className="note-temperature-and">
+          <div className={styles.noteTemperatureAndOxygenSWrapper}>
+            <p className={styles.noteTemperatureAnd}>
               NOTE: Temperature and Oxygen Saturation have their own individual
               sensors.
-            </div>
-          </footer>
+            </p>
+          </div>
         </div>
       </section>
+
+      {showModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <p>Are you sure you want to proceed?</p>
+            <button onClick={handleConfirm}>Yes</button>
+            <button onClick={handleCancel}>No</button>
+          </div>
+        </div>
+      )}
     </div>
   );
+};
+
+Homeselection.propTypes = {
+  className: PropTypes.string,
 };
 
 export default Homeselection;
