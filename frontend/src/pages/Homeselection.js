@@ -8,9 +8,13 @@ const Homeselection = ({ className = "" }) => {
   const [showModal, setShowModal] = useState(false);
   const [nextPath, setNextPath] = useState("");
 
-  // Function to speak the given text
+  // Function to handle speech synthesis
   const speak = (text) => {
     const speechSynthesis = window.speechSynthesis;
+    // Stop any ongoing speech
+    if (speechSynthesis.speaking) {
+      speechSynthesis.cancel();
+    }
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.pitch = 1.2;
     utterance.volume = 1;
@@ -18,25 +22,28 @@ const Homeselection = ({ className = "" }) => {
     speechSynthesis.speak(utterance);
   };
 
-  // Voice over for the Homescreen.
+  // Voice over for the Homescreen
   useEffect(() => {
-    const utteranceText = "Welcome to Medi Sation, your companion on the journey to well-being... Press 1 if you want to measure Temperature... Press 2 if you want to measure Oxygen and Pulse rate... Press 3 to Ask Question...";
+    const utteranceText = "Welcome to MediSation. Press one for temperature measurement... press two for questioning... press three for pulse measurement";
     speak(utteranceText);
 
-    // Add event listener for keydown event to listen for number pad keys
+    // Event listener for keydown event
     const handleKeyPress = (event) => {
       if (event.key === "1") {
         handleNavigation("/selectionone");
+        
       } else if (event.key === "2") {
-        handleNavigation("/selectiontwo");
-      } else if (event.key === "3") {
         handleNavigation("/selectionthree");
+        
+      } else if (event.key === "3") {
+        handleNavigation("/selectiontwo");
+        
       }
     };
 
     window.addEventListener("keydown", handleKeyPress);
 
-    // Cleanup function to remove event listener when component unmounts
+    // Cleanup function
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
@@ -54,6 +61,12 @@ const Homeselection = ({ className = "" }) => {
     setShowModal(true);
   };
 
+  useEffect(() => {
+    if (showModal) {
+      speak("Are you sure you want to proceed?.. Press one to confirm... press two to cancel...");
+    }
+  }, [showModal]);
+  
   const onTempContainerClick = useCallback(() => {
     handleNavigation("/selectionone");
   }, []);

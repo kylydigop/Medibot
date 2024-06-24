@@ -11,6 +11,20 @@ const PulsComp = ({
   const [loaded, setLoaded] = useState(false); // Flag to track whether the GIF has been loaded
   const [showModal, setShowModal] = useState(false); // State to manage the modal visibility
 
+  // Function to handle speech synthesis
+  const speak = (text) => {
+    const speechSynthesis = window.speechSynthesis;
+    // Stop any ongoing speech
+    if (speechSynthesis.speaking) {
+      speechSynthesis.cancel();
+    }
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.pitch = 1.2;
+    utterance.volume = 1;
+    utterance.rate = 0.9;
+    speechSynthesis.speak(utterance);
+  };
+
   useEffect(() => {
     let observer;
 
@@ -47,6 +61,12 @@ const PulsComp = ({
   const handleStartClick = () => {
     setShowModal(true); // Show the modal when START is clicked
   };
+
+  useEffect(() => {
+    if (showModal) {
+      speak("Are you sure you want to proceed? Press one to confirm .... press two to cancel.");
+    }
+  }, [showModal]);
 
   const handleConfirm = () => {
     setShowModal(false); // Hide the modal
