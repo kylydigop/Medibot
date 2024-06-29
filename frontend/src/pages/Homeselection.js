@@ -7,15 +7,44 @@ const Homeselection = ({ className = "" }) => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [nextPath, setNextPath] = useState("");
+  const [voices, setVoices] = useState([]);
+  const [selectedVoice, setSelectedVoice] = useState(null);
+
+  // Fetch the list of available voices
+  useEffect(() => {
+    const fetchVoices = () => {
+      const speechSynthesis = window.speechSynthesis;
+      let voices = speechSynthesis.getVoices();
+      setVoices(voices);
+      
+      if (voices.length > 0) {
+        setSelectedVoice(voices[0]);  // Default to the first voice
+      }
+
+      // In case voices are not immediately available
+      speechSynthesis.onvoiceschanged = () => {
+        voices = speechSynthesis.getVoices();
+        setVoices(voices);
+
+        if (!selectedVoice && voices.length > 0) {
+          setSelectedVoice(voices[0]);  // Default to the first voice
+        }
+      };
+    };
+
+    fetchVoices();
+  }, []);
 
   // Function to handle speech synthesis
   const speak = (text) => {
     const speechSynthesis = window.speechSynthesis;
-    // Stop any ongoing speech
     if (speechSynthesis.speaking) {
       speechSynthesis.cancel();
     }
     const utterance = new SpeechSynthesisUtterance(text);
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+    }
     utterance.pitch = 1.2;
     utterance.volume = 1;
     utterance.rate = 0.9;
@@ -27,30 +56,24 @@ const Homeselection = ({ className = "" }) => {
     const utteranceText = "Welcome to MediSation. Press one for temperature measurement... press two for questioning... press three for pulse measurement";
     speak(utteranceText);
 
-    // Event listener for keydown event
     const handleKeyPress = (event) => {
       if (event.key === "1") {
         handleNavigation("/selectionone");
-        
       } else if (event.key === "2") {
         handleNavigation("/selectionthree");
-        
       } else if (event.key === "3") {
         handleNavigation("/selectiontwo");
-        
       }
     };
 
     window.addEventListener("keydown", handleKeyPress);
 
-    // Cleanup function
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, []);
+  }, [selectedVoice]);
 
   useEffect(() => {
-    // Cancel speech synthesis when navigating away
     return () => {
       window.speechSynthesis.cancel();
     };
@@ -65,8 +88,8 @@ const Homeselection = ({ className = "" }) => {
     if (showModal) {
       speak("Are you sure you want to proceed?.. Press one to confirm... press two to cancel...");
     }
-  }, [showModal]);
-  
+  }, [showModal, selectedVoice]);
+
   const onTempContainerClick = useCallback(() => {
     handleNavigation("/selectionone");
   }, []);
@@ -91,6 +114,14 @@ const Homeselection = ({ className = "" }) => {
 
   return (
     <div className={[styles.homeselection, className].join(" ")}>
+      <h2>Select a Voice</h2>
+        <select onChange={(e) => setSelectedVoice(voices[e.target.value])}>
+          {voices.map((voice, index) => (
+            <option key={index} value={index}>
+              {voice.name} ({voice.lang})
+            </option>
+          ))}
+        </select>
       <section className={styles.rectangleParent}>
         <header className={styles.frameChild} />
         <div className={styles.logonew1Parent}>
