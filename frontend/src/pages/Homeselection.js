@@ -7,7 +7,6 @@ const Homeselection = ({ className = "" }) => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [nextPath, setNextPath] = useState("");
-  const [voices, setVoices] = useState([]);
   const [selectedVoice, setSelectedVoice] = useState(null);
 
   // Fetch the list of available voices
@@ -15,20 +14,24 @@ const Homeselection = ({ className = "" }) => {
     const fetchVoices = () => {
       const speechSynthesis = window.speechSynthesis;
       let voices = speechSynthesis.getVoices();
-      setVoices(voices);
       
-      if (voices.length > 0) {
-        setSelectedVoice(voices[0]);  // Default to the first voice
-      }
+      const defaultVoice = voices.find(voice => 
+        voice.name === "en-us-nyc" && 
+        voice.lang === "en-US"
+      );
+
+      setSelectedVoice(defaultVoice || voices[0]);
 
       // In case voices are not immediately available
       speechSynthesis.onvoiceschanged = () => {
         voices = speechSynthesis.getVoices();
-        setVoices(voices);
+        
+        const defaultVoice = voices.find(voice => 
+          voice.name === "en-us-nyc" && 
+          voice.lang === "en-US"
+        );
 
-        if (!selectedVoice && voices.length > 0) {
-          setSelectedVoice(voices[0]);  // Default to the first voice
-        }
+        setSelectedVoice(defaultVoice || voices[0]);
       };
     };
 
@@ -114,14 +117,6 @@ const Homeselection = ({ className = "" }) => {
 
   return (
     <div className={[styles.homeselection, className].join(" ")}>
-      <h2>Select a Voice</h2>
-        <select onChange={(e) => setSelectedVoice(voices[e.target.value])}>
-          {voices.map((voice, index) => (
-            <option key={index} value={index}>
-              {voice.name} ({voice.lang})
-            </option>
-          ))}
-        </select>
       <section className={styles.rectangleParent}>
         <header className={styles.frameChild} />
         <div className={styles.logonew1Parent}>
