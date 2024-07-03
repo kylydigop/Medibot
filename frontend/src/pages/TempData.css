@@ -20,6 +20,7 @@
 
 .p1-tpone {
   margin: 0;
+  
   text-align: center;
 }
 
@@ -34,49 +35,19 @@
 
 .result-temp4-tpone {
   position: absolute;
-  top: 264px;
+  top: 200px;
   left: 61.2px;
   display: inline-block;
   width: 136.7px;
   height: 83px;
 }
-.circle4-tpone {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 50%;
-  background-color: var(--color-deepskyblue-100);
-  width: 100%;
-  height: 100%;
-}
 .thermometer-icon2-tpone {
   position: absolute;
   top: 24.8px;
-  left: 57.4px;
+  left: 61.4px;
   width: 143.4px;
   height: 140.8px;
   overflow: hidden;
-}
-.temperature2-tpone {
-  margin: 0;
-  position: absolute;
-  top: 177px;
-  left: 47.9px;
-  font-size: inherit;
-  font-weight: 900;
-  font-family: inherit;
-  display: inline-block;
-  width: 160.2px;
-  height: 27px;
-}
-.temp1-tpone {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 252.3px;
-  text-align: left;
-  font-size: var(--font-size-5xl);
 }
 .result-temp-parent-tpone {
   position: absolute;
@@ -90,7 +61,7 @@
   margin: 0;
   position: absolute;
   top: 105px;
-  left: 378px;
+  left: 358px;
   font-size: var(--font-size-17xl);
   font-weight: 900;
   font-family: inherit;

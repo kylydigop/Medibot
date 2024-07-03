@@ -84,7 +84,7 @@ const SelectionOne = () => {
                       className="thermometer-icon1"
                       loading="lazy"
                       alt=""
-                      src="/thermometer1.svg"
+                      src="/thermometer1.png"
                     />
                   </div>
                   <div className="temperature1">Temperature</div>
@@ -94,7 +94,7 @@ const SelectionOne = () => {
                 className="f-r-a-m-e-child"
                 loading="lazy"
                 alt=""
-                src="/group-19@2x.png"
+                src="/returnbutton.png"
                 onClick={onGroupImageClick}
               />
             </div>

@@ -71,26 +71,25 @@ const SaturationData = () => {
           <section className="saturation-data-inner">
             <div className="frame-div">
               <div className="vital-signs-result-wrapper">
-                <h1 className="vital-signs-result1">Vital Sign Result</h1>
+                <h1 className="vital-signs-result1">VITAL SIGN RESULT</h1>
               </div>
               <div className="frame-parent1">
                 <div className="saturation-subtract-parent">
                   <div className="saturation-subtract">
                     <div className="o-o-sat">
-                      <b className="o22">% Sp02</b>
                       <div className="o-o-sat-sub">
                         <div className="circle5" />
                         <img
                           className="o-o-sat-sub-child"
                           loading="lazy"
                           alt=""
-                          src="/group-211.svg"
+                          src="/meter1.png"
                         />
                       </div>
                     </div>
                     <div className="result-temp-wrapper">
                       <h1 className="result-temp1">
-                        <p className="p1">95 %</p>
+                        <p className="p1">95%</p>
                         <p className="normal1">Normal</p>
                       </h1>
                     </div>
@@ -98,26 +97,19 @@ const SaturationData = () => {
                   <div className="saturation-subtract1">
                     <div className="o2-sat-parent">
                       <img
-                        className="o2-sat-icon"
-                        alt=""
-                        src="/o2-sat.svg"
-                      />
-                      <img
                         className="subtract-icon"
                         loading="lazy"
                         alt=""
-                        src="/subtract.svg"
+                        src="/heartbit.png"
                       />
                       <div className="pr-bpm-wrapper">
                         <h3 className="pr-bpm">
-                          <b>{`PR `}</b>
-                          <span>bPm</span>
                         </h3>
                       </div>
                     </div>
                     <div className="result-temp-container">
                       <h1 className="result-temp2">
-                        <p className="hb">78 HB</p>
+                        <p className="hb">78bpm</p>
                         <p className="normal2">Normal</p>
                       </h1>
                     </div>
@@ -129,12 +121,11 @@ const SaturationData = () => {
                       className="frame-item"
                       loading="lazy"
                       alt=""
-                      src="/group-191.svg"
+                      src="/done1.png"
                       onClick={onGroup1Click}
                     />
                   </div>
                   <div className="done2">
-                    <p className="done3">DONE</p>
                   </div>
                 </div>
               </div>

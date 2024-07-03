@@ -120,7 +120,7 @@ const Homeselection = ({ className = "" }) => {
       <section className={styles.rectangleParent}>
         <header className={styles.frameChild} />
         <div className={styles.logonew1Parent}>
-          <img className={styles.logonew1Icon} alt="" src="/logonew.png" />
+          <img className={styles.logonew1Icon} alt="" src="/logo2.png" />
           <div className={styles.healthKioskWrapper}>
             <h1 className={styles.healthKiosk}>MediSation</h1>
           </div>
@@ -132,7 +132,7 @@ const Homeselection = ({ className = "" }) => {
             <div className={styles.frameWrapper}>
               <div className={styles.frameContainer}>
                 <div className={styles.vitalSignsWrapper}>
-                  <h1 className={styles.vitalSigns}>Vital Signs</h1>
+                  <h1 className={styles.vitalSigns}>VITAL SIGNS</h1>
                 </div>
                 <div
                   className={styles.note}
@@ -148,7 +148,7 @@ const Homeselection = ({ className = "" }) => {
                       className={styles.thermometerIcon}
                       loading="lazy"
                       alt=""
-                      src="/thermometer.svg"
+                      src="/thermometer1.png"
                     />
                   </div>
                   <b className={styles.temperature}>Temperature</b>
@@ -174,7 +174,7 @@ const Homeselection = ({ className = "" }) => {
                     className={styles.lungsIcon}
                     loading="lazy"
                     alt=""
-                    src="/lungs@2x.png"
+                    src="/pulseox.png"
                   />
                 </div>
               </div>
@@ -182,7 +182,7 @@ const Homeselection = ({ className = "" }) => {
           </div>
           <div className={styles.noteTemperatureAndOxygenSWrapper}>
             <p className={styles.noteTemperatureAnd}>
-              NOTE: Temperature and Oxygen Saturation have their own individual
+              NOTE: Temperature Sensor and Pulse Oximeter have their own individual
               sensors.
             </p>
           </div>
