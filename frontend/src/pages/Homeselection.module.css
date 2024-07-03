@@ -7,7 +7,7 @@
   max-width: 100%;
 }
 .logonew1Icon {
-  height: 89px;
+  height: 90px;
   width: 96px;
   position: relative;
   object-fit: contain;
@@ -43,42 +43,10 @@
   gap: 14px;
   max-width: calc(100% - 138px);
 }
-.about,
-.aboutIcon {
-  position: relative;
-  z-index: 1;
-}
-.aboutIcon {
-  height: 48px;
-  width: 48px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.about {
-  text-decoration: none;
-  align-self: stretch;
-  font-weight: 700;
-  color: inherit;
-}
-.aboutWrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 8px 0 0;
-}
-.aboutParent,
 .rectangleParent {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-}
-.aboutParent {
-  width: 118px;
-  justify-content: flex-start;
-  text-align: center;
-  font-size: var(--font-size-base);
 }
 .rectangleParent {
   align-self: stretch;
@@ -115,7 +83,7 @@
   position: relative;
   font-size: 20px;
   font-weight: 900;
-  color: #424242;
+  color: #353232;
 }
 .frameContainer,
 .frameWrapper {
@@ -244,7 +212,7 @@
   z-index: 1;
 }
 .lungsIcon {
-  height: 134px;
+  height: 135px;
   width: 154.9px;
   position: absolute;
   margin: 0 !important;
@@ -329,7 +297,7 @@
   box-sizing: border-box;
 }
 .homeselectionInner {
-  width: 980px;
+  width: 990px;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
@@ -346,7 +314,7 @@
   align-items: flex-end;
   justify-content: flex-start;
   padding: 0 0 70px;
-  gap: 28px;
+  gap: 30px;
   line-height: normal;
   letter-spacing: normal;
 }

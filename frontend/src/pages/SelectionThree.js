@@ -141,7 +141,7 @@ const SelectionThree = () => {
                 <img
                   className="logonew"
                   alt="logo"
-                  src="/logonew.png"  // Using the correct absolute path
+                  src="/logo2.png"  
                   onClick={onHome2StreamlineCoresvgClick}
                 />
               </button>
