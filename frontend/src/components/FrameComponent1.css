@@ -15,7 +15,7 @@
   max-width: 100%;
   overflow: hidden;
   height: 73px;
-  object-fit: cover;
+  object-fit: contain;
 }
 .speech-language-therapy2 {
   cursor: pointer;

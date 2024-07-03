@@ -12,7 +12,7 @@ const FrameComponent1 = ({
           <img
             className="logonew"
             alt=""
-            src="/logonew.png"
+            src="/logo2.png"
             onClick={onHome2StreamlineCoresvgClick}
           />
         </button>

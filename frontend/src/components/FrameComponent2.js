@@ -12,7 +12,7 @@ const FrameComponent2 = ({
           <img
             className="logonew"
             alt=""
-            src="/logonew.png"
+            src="/logo2.png"
           />
         </button>
         <div className="health-kiosk-frame-sat">
