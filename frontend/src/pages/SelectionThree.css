@@ -529,6 +529,10 @@
 }
 
 .logonew {
-  width: 90px; /* Adjust size as needed */
-  height: 90px; /* Maintain aspect ratio */
+  height: 89px;
+  width: 86px;
+  position: relative;
+  object-fit: contain;
+  z-index: 1;
+  padding-right: 100%;
 }
