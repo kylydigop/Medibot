@@ -83,7 +83,7 @@
   position: relative;
   font-size: 20px;
   font-weight: 900;
-  color: #353232;
+  color: #000000;
 }
 .frameContainer,
 .frameWrapper {
@@ -225,7 +225,7 @@
 }
 .o2Parent,
 .o2Sat {
-  width: 145.5px;
+  width: 145.9px;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -235,7 +235,7 @@
 .o2Sat {
   width: 213px;
   justify-content: flex-end;
-  padding: 129px 14px 38px;
+  padding: 130px 14px 37px;
   box-sizing: border-box;
   cursor: pointer;
   z-index: 1;
@@ -282,7 +282,7 @@
   flex-direction: row;
   justify-content: center;
   font-size: var(--font-size-base);
-  color: rgba(90, 84, 84, 0.5);
+  color: rgb(0, 0, 0);
 }
 .frameParent {
   width: 700px;
