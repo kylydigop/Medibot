@@ -105,20 +105,12 @@ const TempData = () => {
           </div>
           <h1 className="vital-signs-result1-tpone">VITAL SIGN RESULT</h1>
           <img
-            className="temp-data-item-tpone"
-            loading="lazy"
-            alt=""
-            src="/vector-9.svg"
-          />
-          <img
             className="temp-data-inner-tpone"
             loading="lazy"
             alt=""
             src="/done1.png"
             onClick={onGroupClick}
           />
-          <div className="done4-tpone">
-          </div>
           <div className="home-container">
             <img
               className="home-2-streamline-coresvg-icon3-tpone"

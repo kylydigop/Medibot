@@ -83,12 +83,13 @@ const SaturationData = () => {
                           className="o-o-sat-sub-child"
                           loading="lazy"
                           alt=""
-                          src="/meter1.png"
+                          src="/spo2.png"
                         />
                       </div>
                     </div>
                     <div className="result-temp-wrapper">
                       <h1 className="result-temp1">
+                        <p className="p1">SPO2:</p>
                         <p className="p1">95%</p>
                         <p className="normal1">Normal</p>
                       </h1>
@@ -100,7 +101,7 @@ const SaturationData = () => {
                         className="subtract-icon"
                         loading="lazy"
                         alt=""
-                        src="/heartbit.png"
+                        src="/pulso.png"
                       />
                       <div className="pr-bpm-wrapper">
                         <h3 className="pr-bpm">
@@ -109,7 +110,8 @@ const SaturationData = () => {
                     </div>
                     <div className="result-temp-container">
                       <h1 className="result-temp2">
-                        <p className="hb">78bpm</p>
+                        <p className="hb">BPM:</p>
+                        <p className="hb">78</p>
                         <p className="normal2">Normal</p>
                       </h1>
                     </div>
@@ -124,8 +126,6 @@ const SaturationData = () => {
                       src="/done1.png"
                       onClick={onGroup1Click}
                     />
-                  </div>
-                  <div className="done2">
                   </div>
                 </div>
               </div>
