@@ -77,7 +77,7 @@
   border-radius: 10px;
   color: white;
   font-size: 18px;
-  max-width: 87.6%; /* Controls maximum width of message */
+  max-width: 100%; /* Controls maximum width of message */
 }
 
 .right {
