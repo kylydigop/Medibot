@@ -102,15 +102,15 @@
   flex-direction: row;
   padding: 0 66px;
   box-sizing: border-box;
-  margin-left: 25px; /* Adjust the value as needed */
+  margin-left: 25px; 
 }
 
 .circle {
   position: absolute;
   top: 0;
-  left: -3px; /* Move the circle 50px to the left */
+  left: -3px; 
   border-radius: 50%;
-  background-color: #3376c9;
+  background-color: #1D5AA4;
   width: 100%;
   height: 100%;
   border: 2px solid #000000;   
@@ -118,9 +118,9 @@
 .thermometerIcon {
   position: absolute;
   top: 23.4px;
-  left: 45.56px;
-  width: 106.6px;
-  height: 104.4px;
+  left: 41.4px;
+  width: 117px;
+  height: 109px;
   overflow: hidden;
   z-index: 1;
 }
@@ -133,9 +133,9 @@
   height: 100%;
 }
 .temperature {
-  top: 128.6px;
+  top: 134px;
   left: 29.5px;
-  font-weight: 700;
+  font-weight: 900;
   display: inline-block;
   width: 131.3px;
   height: 20px;
@@ -210,7 +210,10 @@
   position: relative;
   font-weight: 900;
   z-index: 1;
+  top: 4px;      
+  bottom: 10px;   
 }
+
 .lungsIcon {
   height: 135px;
   width: 154.9px;
