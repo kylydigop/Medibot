@@ -2,25 +2,36 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import FrameComponent2 from "../components/FrameComponent2";
 import "./SatData.css";
-
-
 import { ClipLoader, DotLoader } from "react-spinners";
 
 const SaturationData = () => {
   const navigate = useNavigate();
-
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({ spo2: null, pulse: null });
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      speak("Your Vital Sign Result in Oxygen is 95 Percent.. Normal... and your pulse rate/beats per minute is 78.. Normal...");
-    }, 8000);
 
+    // Fetch the data from the specified IP
+    fetch("http://10.42.0.250/poxdata")
+      .then((response) => response.json())
+      .then((data) => {
+        // Assuming your JSON data contains "spo2" and "pulse"
+        setData({
+          spo2: data.spo2, // Oxygen saturation data
+          pulse: data.pulse, // Pulse rate data
+        });
+        setLoading(false);
 
+        // Announce the results via text-to-speech
+        speak(`Your Vital Sign Result in Oxygen is ${data.spo2}%.. and ${data.pulse}..`);
+      })
+      .catch((error) => {
+        console.error("Error fetching the data:", error);
+        setLoading(false);
+      });
 
-    // Pagtapos ng loader result na voice.
+    // Initial voice message
     speak("Processing.... Please do not remove your finger while getting the result.");
   }, []);
 
@@ -36,7 +47,6 @@ const SaturationData = () => {
     speak("Thank you for using MediSation. Have a great day...");
     navigate("/");
   }, [navigate]);
-
 
   const speak = (text) => {
     const speechSynthesis = window.speechSynthesis;
@@ -89,8 +99,8 @@ const SaturationData = () => {
                     </div>
                     <div className="result-temp-wrapper">
                       <h1 className="result-temp1">
-                        <p className="p1">95%</p>
-                        <p className="normal1">Normal</p>
+                        <p className="p1">SPO2 %</p>
+                        {data.spo2 ? <p>{data.spo2}%</p> : <p>Loading...</p>}
                       </h1>
                     </div>
                   </div>
@@ -109,8 +119,8 @@ const SaturationData = () => {
                     </div>
                     <div className="result-temp-container">
                       <h1 className="result-temp2">
-                        <p className="hb">78bpm</p>
-                        <p className="normal2">Normal</p>
+                        <p className="hb">PR bpm</p>
+                        {data.pulse ? <p>{data.pulse} BPM</p> : <p>Loading...</p>}
                       </h1>
                     </div>
                   </div>
@@ -125,8 +135,7 @@ const SaturationData = () => {
                       onClick={onGroup1Click}
                     />
                   </div>
-                  <div className="done2">
-                  </div>
+                  <div className="done2"></div>
                 </div>
               </div>
             </div>
