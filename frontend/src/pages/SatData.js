@@ -93,7 +93,7 @@ const SaturationData = () => {
                           className="o-o-sat-sub-child"
                           loading="lazy"
                           alt=""
-                          src="/meter1.png"
+                          src="/spo2.png"
                         />
                       </div>
                     </div>
@@ -110,7 +110,7 @@ const SaturationData = () => {
                         className="subtract-icon"
                         loading="lazy"
                         alt=""
-                        src="/heartbit.png"
+                        src="/pulso.png"
                       />
                       <div className="pr-bpm-wrapper">
                         <h3 className="pr-bpm">

@@ -46,7 +46,7 @@
   top: 24.8px;
   left: 61.4px;
   width: 143.4px;
-  height: 140.8px;
+  height: 149px;
   overflow: hidden;
 }
 .result-temp-parent-tpone {
@@ -77,23 +77,11 @@
 }
 .temp-data-inner-tpone {
   position: absolute;
-  top: 476px;
+  top: 500px;
   left: 927px;
   width: 83.3px;
   height: 84.4px;
   cursor: pointer;
-}
-.done5-tpone {
-  margin: 0;
-}
-.done4-tpone {
-  position: absolute;
-  top: 565px;
-  left: 927px;
-  font-weight: 900;
-  display: inline-block;
-  width: 90px;
-  height: 40px;
 }
 .vector-icon5-tpone {
   position: absolute;
@@ -103,37 +91,6 @@
   right: 8.98%;
   bottom: 89%;
   left: 86.52%;
-  max-width: 100%;
-  overflow: hidden;
-  max-height: 100%;
-}
-.about3-tpone,
-.home3-tpone {
-  position: absolute;
-  top: 27px;
-  left: 933px;
-  display: flex;
-  color: var(--color-white);
-  align-items: center;
-  justify-content: center;
-  width: 70px;
-  height: 20px;
-}
-.home3-tpone {
-  top: 35px;
-  left: 92%;
-  width: 51px;
-  min-width: 51px;
-  cursor: pointer;
-}
-.home-2-streamline-coresvg-icon3-tpone {
-  position: absolute;
-  height: 7.43%;
-  width: 4.98%;
-  top: 2.95%;
-  right: 19.53%;
-  bottom: 89.62%;
-  left: 87%;
   max-width: 100%;
   overflow: hidden;
   max-height: 100%;
@@ -155,13 +112,14 @@
   padding: 0;
   background-color: transparent;
   position: absolute;
-  height: 100%;
+  height: 100%; /* Adjust height as needed */
   top: 0;
   bottom: 0;
-  left: 0;
-  width: 80px;
+  left: 0; /* Corrected from `left: 40` to `left: 40px` */
+  width: 90px; /* Adjusted width to make the logo smaller */
   overflow: hidden;
 }
+
 .health-kiosk4-tpone {
   margin: 0;
   position: absolute;

@@ -16,23 +16,8 @@ const FrameComponent2 = ({
           />
         </button>
         <div className="health-kiosk-frame-sat">
-          <h1 className="health-kiosk3-sat">MediSation</h1>
-        </div>
-      </div>
-      <div className="frame-wrapper5-sat">
-        <div className="frame-parent8-sat">
-          <div className="home-container-sat" onClick={onHome2StreamlineCoresvgClick}>
-            <img
-              className="home-2-streamline-coresvg-icon2-sat"
-              loading="lazy"
-              alt="home icon"
-              src="/home2streamlinecoresvg1.svg"
-            />
-            <b className="home1-sat" onClick={onHOMETextClick}>
-              HOME
-            </b>
-          </div>
-        </div>
+          <h1 className="health-kiosk3-sat"onClick={onHome2StreamlineCoresvgClick}>MediSation</h1>
+        </div>    
       </div>
     </section>
   );

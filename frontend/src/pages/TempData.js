@@ -105,31 +105,12 @@ const TempData = () => {
           </div>
           <h1 className="vital-signs-result1-tpone">VITAL SIGN RESULT</h1>
           <img
-            className="temp-data-item-tpone"
-            loading="lazy"
-            alt=""
-            src="/vector-9.svg"
-          />
-          <img
             className="temp-data-inner-tpone"
             loading="lazy"
             alt=""
             src="/done1.png"
             onClick={onGroupClick}
           />
-          <div className="done4-tpone">
-          </div>
-          <div className="home-container">
-            <img
-              className="home-2-streamline-coresvg-icon3-tpone"
-              loading="lazy"
-              alt="home icon"
-              src="/home2streamlinecoresvg1.svg"
-            />
-            <b className="home3-tpone" onClick={onHOMETextClick}>
-              HOME
-            </b>
-          </div>
           <div className="group-div-tpone">
             <button className="speech-language-therapy3-tpone">
               <img
@@ -138,7 +119,7 @@ const TempData = () => {
                 src="/logo2.png"
               />
             </button>
-            <h1 className="health-kiosk4-tpone">MediSation</h1>
+            <h1 className="health-kiosk4-tpone" onClick={onGroupClick}>MediSation</h1>
           </div>
         </>
       )}
