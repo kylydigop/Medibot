@@ -16,15 +16,15 @@ const SaturationData = () => {
     fetch("http://10.42.0.250/poxdata")
       .then((response) => response.json())
       .then((data) => {
-        // Assuming your JSON data contains "spo2" and "pulse"
+        // Assuming the JSON data contains keys "SpO2" and "BPM"
         setData({
-          spo2: data.spo2, // Oxygen saturation data
-          pulse: data.pulse, // Pulse rate data
+          spo2: data.SpO2, // Oxygen saturation data (SpO2)
+          pulse: data.BPM,  // Pulse rate data (BPM)
         });
         setLoading(false);
 
         // Announce the results via text-to-speech
-        speak(`Your Vital Sign Result in Oxygen is ${data.spo2}%.. and ${data.pulse}..`);
+        speak(`Your Vital Sign Result is SpO2 ${data.SpO2}% and Pulse Rate is ${data.BPM} beats per minute.`);
       })
       .catch((error) => {
         console.error("Error fetching the data:", error);
@@ -100,7 +100,7 @@ const SaturationData = () => {
                     <div className="result-temp-wrapper">
                       <h1 className="result-temp1">
                         <p className="p1">SpO2 %</p>
-                        {data.spo2 ? <p>{data.spo2}%</p> : <p>Loading...</p>}
+                        {data.spo2 !== null ? <p>{data.spo2}%</p> : <p>Loading...</p>}
                       </h1>
                     </div>
                   </div>
@@ -113,14 +113,13 @@ const SaturationData = () => {
                         src="/pulso.png"
                       />
                       <div className="pr-bpm-wrapper">
-                        <h3 className="pr-bpm">
-                        </h3>
+                        <h3 className="pr-bpm"></h3>
                       </div>
                     </div>
                     <div className="result-temp-container">
                       <h1 className="result-temp2">
                         <p className="hb">PR bpm</p>
-                        {data.pulse ? <p>{data.pulse} BPM</p> : <p>Loading...</p>}
+                        {data.pulse !== null ? <p>{data.pulse} BPM</p> : <p>Loading...</p>}
                       </h1>
                     </div>
                   </div>
