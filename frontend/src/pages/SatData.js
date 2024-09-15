@@ -99,7 +99,7 @@ const SaturationData = () => {
                     </div>
                     <div className="result-temp-wrapper">
                       <h1 className="result-temp1">
-                        <p className="p1">SPO2 %</p>
+                        <p className="p1">SpO2 %</p>
                         {data.spo2 ? <p>{data.spo2}%</p> : <p>Loading...</p>}
                       </h1>
                     </div>
