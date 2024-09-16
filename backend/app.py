@@ -33,7 +33,7 @@ PROMPT = PromptTemplate(template=prompt_template, input_variables=["history", "q
 # Create the LLM
 llm = HuggingFaceHub(repo_id="smrynrz20/finetuned-bart-mquad",
                      model_kwargs={"temperature": 0,
-                                   "max_length": 64},)
+                                   "max_length": 512},)
 
 # Create a new memory buffer instance
 memory = ConversationStringBufferMemory(memory_key="history", return_messages=True)
