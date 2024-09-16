@@ -2,25 +2,36 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import FrameComponent2 from "../components/FrameComponent2";
 import "./SatData.css";
-
-
 import { ClipLoader, DotLoader } from "react-spinners";
 
 const SaturationData = () => {
   const navigate = useNavigate();
-
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({ spo2: null, pulse: null });
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      speak("Your Vital Sign Result in Oxygen is 95 Percent.. Normal... and your pulse rate/beats per minute is 78.. Normal...");
-    }, 8000);
 
+    // Fetch the data from the specified IP
+    fetch("http://10.42.0.250/poxdata")
+      .then((response) => response.json())
+      .then((data) => {
+        // Assuming the JSON data contains keys "SpO2" and "BPM"
+        setData({
+          spo2: data.SpO2, // Oxygen saturation data (SpO2)
+          pulse: data.BPM,  // Pulse rate data (BPM)
+        });
+        setLoading(false);
 
+        // Announce the results via text-to-speech
+        speak(`Your Vital Sign Result is SpO2 ${data.SpO2}% and Pulse Rate is ${data.BPM} beats per minute.`);
+      })
+      .catch((error) => {
+        console.error("Error fetching the data:", error);
+        setLoading(false);
+      });
 
-    // Pagtapos ng loader result na voice.
+    // Initial voice message
     speak("Processing.... Please do not remove your finger while getting the result.");
   }, []);
 
@@ -36,7 +47,6 @@ const SaturationData = () => {
     speak("Thank you for using MediSation. Have a great day...");
     navigate("/");
   }, [navigate]);
-
 
   const speak = (text) => {
     const speechSynthesis = window.speechSynthesis;
@@ -71,54 +81,45 @@ const SaturationData = () => {
           <section className="saturation-data-inner">
             <div className="frame-div">
               <div className="vital-signs-result-wrapper">
-                <h1 className="vital-signs-result1">Vital Sign Result</h1>
+                <h1 className="vital-signs-result1">VITAL SIGN RESULT</h1>
               </div>
               <div className="frame-parent1">
                 <div className="saturation-subtract-parent">
                   <div className="saturation-subtract">
                     <div className="o-o-sat">
-                      <b className="o22">% Sp02</b>
                       <div className="o-o-sat-sub">
                         <div className="circle5" />
                         <img
                           className="o-o-sat-sub-child"
                           loading="lazy"
                           alt=""
-                          src="/group-211.svg"
+                          src="/spo2.png"
                         />
                       </div>
                     </div>
                     <div className="result-temp-wrapper">
                       <h1 className="result-temp1">
-                        <p className="p1">95 %</p>
-                        <p className="normal1">Normal</p>
+                        <p className="p1">Oxygen level</p>
+                        {data.spo2 !== null ? <p>{data.spo2}%</p> : <p> Loading</p>}
                       </h1>
                     </div>
                   </div>
                   <div className="saturation-subtract1">
                     <div className="o2-sat-parent">
                       <img
-                        className="o2-sat-icon"
-                        alt=""
-                        src="/o2-sat.svg"
-                      />
-                      <img
                         className="subtract-icon"
                         loading="lazy"
                         alt=""
-                        src="/subtract.svg"
+                        src="/pulso.png"
                       />
                       <div className="pr-bpm-wrapper">
-                        <h3 className="pr-bpm">
-                          <b>{`PR `}</b>
-                          <span>bPm</span>
-                        </h3>
+                        <h3 className="pr-bpm"></h3>
                       </div>
                     </div>
                     <div className="result-temp-container">
                       <h1 className="result-temp2">
-                        <p className="hb">78 HB</p>
-                        <p className="normal2">Normal</p>
+                        <p className="hb">Pulse rate</p>
+                        {data.pulse !== null ? <p>{data.pulse} BPM</p> : <p> Loading</p>}
                       </h1>
                     </div>
                   </div>
@@ -129,13 +130,11 @@ const SaturationData = () => {
                       className="frame-item"
                       loading="lazy"
                       alt=""
-                      src="/group-191.svg"
+                      src="/done1.png"
                       onClick={onGroup1Click}
                     />
                   </div>
-                  <div className="done2">
-                    <p className="done3">DONE</p>
-                  </div>
+                  <div className="done2"></div>
                 </div>
               </div>
             </div>

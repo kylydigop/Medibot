@@ -70,7 +70,6 @@ const SelectionTwo = () => {
       onHome2StreamlineCoresvgClick={onHome2StreamlineCoresvgClick}
       onHOMETextClick={onHOMETextClick}
       />
-      <img className="selectiontwo-child" alt="" src="/group-21@2x.png" />
       <section className="selectiontwo-inner">
         <div className="frame-container">
           <div className="oval-shape-wrapper">
@@ -84,7 +83,7 @@ const SelectionTwo = () => {
                       className="pulse-icon"
                       loading="lazy"
                       alt=""
-                      src="/pulse.svg"
+                      src="/pulseox.png"
                     />
                   </div>
                 </div>
@@ -93,7 +92,7 @@ const SelectionTwo = () => {
                 className="oval-shape-child"
                 loading="lazy"
                 alt=""
-                src="/group-192@2x.png"
+                src="/returnbutton.png"
                 onClick={onGroupImage1Click}
               />
             </div>

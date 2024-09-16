@@ -7,15 +7,47 @@ const Homeselection = ({ className = "" }) => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [nextPath, setNextPath] = useState("");
+  const [selectedVoice, setSelectedVoice] = useState(null);
+
+  // Fetch the list of available voices
+  useEffect(() => {
+    const fetchVoices = () => {
+      const speechSynthesis = window.speechSynthesis;
+      let voices = speechSynthesis.getVoices();
+      
+      const defaultVoice = voices.find(voice => 
+        voice.name === "en-us-nyc" && 
+        voice.lang === "en-US"
+      );
+
+      setSelectedVoice(defaultVoice || voices[0]);
+
+      // In case voices are not immediately available
+      speechSynthesis.onvoiceschanged = () => {
+        voices = speechSynthesis.getVoices();
+        
+        const defaultVoice = voices.find(voice => 
+          voice.name === "en-us-nyc" && 
+          voice.lang === "en-US"
+        );
+
+        setSelectedVoice(defaultVoice || voices[0]);
+      };
+    };
+
+    fetchVoices();
+  }, []);
 
   // Function to handle speech synthesis
   const speak = (text) => {
     const speechSynthesis = window.speechSynthesis;
-    // Stop any ongoing speech
     if (speechSynthesis.speaking) {
       speechSynthesis.cancel();
     }
     const utterance = new SpeechSynthesisUtterance(text);
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+    }
     utterance.pitch = 1.2;
     utterance.volume = 1;
     utterance.rate = 0.9;
@@ -27,30 +59,24 @@ const Homeselection = ({ className = "" }) => {
     const utteranceText = "Welcome to MediSation. Press one for temperature measurement... press two for questioning... press three for pulse measurement";
     speak(utteranceText);
 
-    // Event listener for keydown event
     const handleKeyPress = (event) => {
       if (event.key === "1") {
         handleNavigation("/selectionone");
-        
       } else if (event.key === "2") {
         handleNavigation("/selectionthree");
-        
       } else if (event.key === "3") {
         handleNavigation("/selectiontwo");
-        
       }
     };
 
     window.addEventListener("keydown", handleKeyPress);
 
-    // Cleanup function
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, []);
+  }, [selectedVoice]);
 
   useEffect(() => {
-    // Cancel speech synthesis when navigating away
     return () => {
       window.speechSynthesis.cancel();
     };
@@ -65,8 +91,8 @@ const Homeselection = ({ className = "" }) => {
     if (showModal) {
       speak("Are you sure you want to proceed?.. Press one to confirm... press two to cancel...");
     }
-  }, [showModal]);
-  
+  }, [showModal, selectedVoice]);
+
   const onTempContainerClick = useCallback(() => {
     handleNavigation("/selectionone");
   }, []);
@@ -94,7 +120,7 @@ const Homeselection = ({ className = "" }) => {
       <section className={styles.rectangleParent}>
         <header className={styles.frameChild} />
         <div className={styles.logonew1Parent}>
-          <img className={styles.logonew1Icon} alt="" src="/logonew.png" />
+          <img className={styles.logonew1Icon} alt="" src="/logo2.png" />
           <div className={styles.healthKioskWrapper}>
             <h1 className={styles.healthKiosk}>MediSation</h1>
           </div>
@@ -106,7 +132,7 @@ const Homeselection = ({ className = "" }) => {
             <div className={styles.frameWrapper}>
               <div className={styles.frameContainer}>
                 <div className={styles.vitalSignsWrapper}>
-                  <h1 className={styles.vitalSigns}>Vital Signs</h1>
+                  <h1 className={styles.vitalSigns}>VITAL SIGNS</h1>
                 </div>
                 <div
                   className={styles.note}
@@ -122,7 +148,7 @@ const Homeselection = ({ className = "" }) => {
                       className={styles.thermometerIcon}
                       loading="lazy"
                       alt=""
-                      src="/thermometer.svg"
+                      src="/thermometer1.png"
                     />
                   </div>
                   <b className={styles.temperature}>Temperature</b>
@@ -148,7 +174,7 @@ const Homeselection = ({ className = "" }) => {
                     className={styles.lungsIcon}
                     loading="lazy"
                     alt=""
-                    src="/lungs@2x.png"
+                    src="/pulseox.png"
                   />
                 </div>
               </div>
@@ -156,7 +182,7 @@ const Homeselection = ({ className = "" }) => {
           </div>
           <div className={styles.noteTemperatureAndOxygenSWrapper}>
             <p className={styles.noteTemperatureAnd}>
-              NOTE: Temperature and Oxygen Saturation have their own individual
+              NOTE: Temperature Sensor and Pulse Oximeter have their own individual
               sensors.
             </p>
           </div>

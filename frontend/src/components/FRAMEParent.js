@@ -24,7 +24,7 @@ const FRAMEParent = () => {
           <img
             className="logonew"
             alt=""
-            src="/logonew.png"
+            src="/logo2.png"
           />
           <img className="vector-icon4" alt="" src="/vector.svg" />
         </button>

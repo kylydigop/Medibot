@@ -99,48 +99,27 @@ const TempData = () => {
                 className="thermometer-icon2-tpone"
                 loading="lazy"
                 alt=""
-                src="/thermometer2.svg"
+                src="/temperatura.png"
               />
-              <h3 className="temperature2-tpone">Temperature</h3>
             </div>
           </div>
-          <h1 className="vital-signs-result1-tpone">Vital Sign Result</h1>
-          <img
-            className="temp-data-item-tpone"
-            loading="lazy"
-            alt=""
-            src="/vector-9.svg"
-          />
+          <h1 className="vital-signs-result1-tpone">VITAL SIGN RESULT</h1>
           <img
             className="temp-data-inner-tpone"
             loading="lazy"
             alt=""
-            src="/group-191.svg"
+            src="/done1.png"
             onClick={onGroupClick}
           />
-          <div className="done4-tpone">
-            <p className="done5-tpone">DONE</p>
-          </div>
-          <div className="home-container">
-            <img
-              className="home-2-streamline-coresvg-icon3-tpone"
-              loading="lazy"
-              alt="home icon"
-              src="/home2streamlinecoresvg1.svg"
-            />
-            <b className="home3-tpone" onClick={onHOMETextClick}>
-              HOME
-            </b>
-          </div>
           <div className="group-div-tpone">
             <button className="speech-language-therapy3-tpone">
               <img
                 className="logonew"
                 alt=""
-                src="/logonew.png"
+                src="/logo2.png"
               />
             </button>
-            <h1 className="health-kiosk4-tpone">MediSation</h1>
+            <h1 className="health-kiosk4-tpone" onClick={onGroupClick}>MediSation</h1>
           </div>
         </>
       )}

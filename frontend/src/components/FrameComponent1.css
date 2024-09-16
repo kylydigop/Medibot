@@ -15,7 +15,7 @@
   max-width: 100%;
   overflow: hidden;
   height: 73px;
-  object-fit: cover;
+  object-fit: contain;
 }
 .speech-language-therapy2 {
   cursor: pointer;
@@ -23,7 +23,7 @@
   padding: 0;
   background-color: transparent;
   height: 80px;
-  width: 80px;
+  width: 90px;
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
@@ -57,72 +57,6 @@
   gap: var(--gap-sm);
   max-width: 100%;
 }
-.home-2-streamline-coresvg-icon1 {
-  width: 51px;
-  height: 52px;
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
-  cursor: pointer;
-  z-index: 3;
-}
-.home-2-streamline-coresvg-container {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 0 var(--padding-8xs) var(--padding-12xs) 0;
-}
-.home1 {
-  align-self: stretch;
-  height: 28px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  min-width: 51px;
-  cursor: pointer;
-  z-index: 3;
-  padding-top: 15px;
-}
-.home-button {
-  width: 56px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 0 var(--padding-8xs) var(--padding-5xs) 0;
-  box-sizing: border-box;
-}
-.about-icon2,
-.about2 {
-  position: relative;
-  flex-shrink: 0;
-}
-.about-icon2 {
-  height: 48px;
-  width: 48px;
-  overflow: hidden;
-  z-index: 3;
-}
-.about2 {
-  align-self: stretch;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 4;
-}
-.about-title {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 0 0 var(--padding-5xs);
-}
 .frame-parent6 {
   align-self: stretch;
   flex: 1;
@@ -130,21 +64,6 @@
   flex-direction: row;
   align-items: flex-end;
   justify-content: flex-start;
-}
-.frame-header,
-.frame-wrapper4 {
-  display: flex;
-  box-sizing: border-box;
-}
-.frame-wrapper4 {
-  height: 66px;
-  width: 230px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 0 0 var(--padding-smi);
-  text-align: center;
-  font-size: var(--font-size-base);
 }
 .frame-header {
   align-self: stretch;
@@ -195,13 +114,6 @@
   align-items: center; /* Center the items vertically */
   justify-content: flex-start;
   gap: var(--gap-sm);
-}
-
-.home-2-streamline-coresvg-container,
-.home-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .frame-wrapper4 {
