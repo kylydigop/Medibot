@@ -63,7 +63,7 @@
   position: absolute;
   top: 39px;
   left: 54px;
-  width: 158.5px;
+  width: 170px;
   height: 144.2px;
   z-index: 3;
 }
@@ -86,15 +86,17 @@
 .result-temp1 {
   margin: 0;
   height: 83px;
+  line-height: 40px;
+  white-space: nowrap;
   flex: 1;
-  left: 10.5px; 
+  left: 40px; 
   position: relative;
   font-size: inherit;
-  font-weight: 700;
+  font-weight: 900;
   font-family: inherit;
   display: inline-block;
   z-index: 2;
-  transform: translateY(-45px); 
+  transform: translateY(-55px); 
 }
 .result-temp-wrapper {
   align-self: stretch;
@@ -113,7 +115,7 @@
   align-items: flex-end;
   justify-content: flex-start;
   gap: var(--gap-11xs);
-  min-width: 169px;
+  min-width: 180px;
 }
 .pr-bpm,
 .subtract-icon {
@@ -121,7 +123,7 @@
   z-index: 3;
 }
 .subtract-icon {
-  width: 130px;
+  width: 150px;
   height: 123px;
 }
 .pr-bpm {
@@ -154,15 +156,17 @@
 .result-temp2 {
   margin: 0%;
   height: 83px;
-  width: 139.7px;
+  line-height: 40px;
+  white-space: nowrap;
+  width: 141px;
   position: relative;
   font-size: inherit;
-  font-weight: 700;
+  font-weight: 900;
   font-family: inherit;
   display: inline-block;
   flex-shrink: 0;
   z-index: 2;
-  transform: translateY(-45px); 
+  transform: translateY(-55px); 
 }
 .result-temp-container {
   align-self: stretch;

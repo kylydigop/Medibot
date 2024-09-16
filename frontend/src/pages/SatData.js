@@ -99,8 +99,8 @@ const SaturationData = () => {
                     </div>
                     <div className="result-temp-wrapper">
                       <h1 className="result-temp1">
-                        <p className="p1">SpO2 %</p>
-                        {data.spo2 !== null ? <p>{data.spo2}%</p> : <p>Loading...</p>}
+                        <p className="p1">Oxygen level</p>
+                        {data.spo2 !== null ? <p>{data.spo2}%</p> : <p>Loading</p>}
                       </h1>
                     </div>
                   </div>
@@ -118,8 +118,8 @@ const SaturationData = () => {
                     </div>
                     <div className="result-temp-container">
                       <h1 className="result-temp2">
-                        <p className="hb">PR bpm</p>
-                        {data.pulse !== null ? <p>{data.pulse} BPM</p> : <p>Loading...</p>}
+                        <p className="hb">Pulse rate</p>
+                        {data.pulse !== null ? <p>{data.pulse} BPM</p> : <p>Loading</p>}
                       </h1>
                     </div>
                   </div>
