@@ -73,25 +73,24 @@
 
 .message-bubble {
   padding: 20px;
+  border-radius: 15px;
   margin: 10px;
-  border-radius: 10px;
   color: white;
   font-size: 18px;
-  max-width: 100%; /* Controls maximum width of message */
+  max-width: 60%; /* Adjusts the maximum width of each bubble */
+  word-wrap: break-word;
 }
 
-.right {
-  align-self: flex-end;
-  background-color: #2cce32; /* Green background for user messages */
-}
-
-.left {
+.message-bubble.left {
+  background-color: #275886;
+  text-align: left;
   align-self: flex-start;
-  background-color: #275886; /* Blue background for bot messages */
 }
 
-.user-message, .bot-message {
-  word-wrap: break-word; /* Ensures long words do not overflow */
+.message-bubble.right {
+  background-color: #2cce32;
+  text-align: right;
+  align-self: flex-end;
 }
 
 .micbtn {
