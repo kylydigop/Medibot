@@ -70,9 +70,9 @@ const TempData = () => {
   const speak = (text) => {
     const speechSynthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.pitch = 1.2;
+    utterance.pitch = 0.6;
     utterance.volume = 1;
-    utterance.rate = 0.9;
+    utterance.rate = 0.6;
     speechSynthesis.speak(utterance);
   };
 
