@@ -17,39 +17,45 @@ const SaturationData = () => {
       setLoading(true);
 
       // Fetch the data from the specified IP
-      fetch("http://10.42.0.250/poxdata")
+      fetch("http://192.168.137.250/poxdata")
         .then((response) => response.json())
         .then((data) => {
-          const spo2 = data.SpO2;
-          const pulse = data.BPM;
+          const spo2 = data.SpO2; // Oxygen saturation
+          const pulse = data.BPM; // Pulse rate
 
-          if (spo2 < 60 || spo2 === 0) {
-            // Retry if SpO2 is invalid
+          if (spo2 <= 0 || spo2 < 60) {
+            // If SpO2 is invalid, retry fetching
             if (retryCount < maxRetries) {
-              speak("Invalid reading detected. Retrying...");
+              speak("Invalid reading. Retrying...");
               setRetryCount((prev) => prev + 1);
-              setTimeout(fetchData, 2000); // Retry after 2 seconds
             } else {
-              speak("Unable to get a valid reading. Please try again.");
+              speak(
+                "Unable to get a valid reading after multiple attempts. Please try again."
+              );
               setLoading(false);
             }
           } else {
-            // Valid data received
+            // If data is valid, update state
             setData({ spo2, pulse });
             setLoading(false);
 
             // Announce the results via text-to-speech
-            speak(`Your Vital Sign Result is SpO2 ${spo2}% and Pulse Rate is ${pulse} beats per minute.`);
+            speak(
+              `Your Vital Sign Result is SpO2 ${spo2}% and Pulse Rate is ${pulse} beats per minute.`
+            );
           }
         })
         .catch((error) => {
           console.error("Error fetching the data:", error);
+          speak("Error fetching data. Please try again.");
           setLoading(false);
         });
     };
 
     // Initial voice message
-    speak("Processing.... Please do not remove your finger while getting the result.");
+    speak(
+      "Processing.... Please do not remove your finger while getting the result."
+    );
     fetchData();
   }, [retryCount]);
 
@@ -137,7 +143,11 @@ const SaturationData = () => {
                     <div className="result-temp-container">
                       <h1 className="result-temp2">
                         <p className="hb">Pulse rate</p>
-                        {data.pulse !== null ? <p>{data.pulse} BPM</p> : <p> Loading</p>}
+                        {data.pulse !== null ? (
+                          <p>{data.pulse} BPM</p>
+                        ) : (
+                          <p> Loading</p>
+                        )}
                       </h1>
                     </div>
                   </div>

@@ -56,7 +56,7 @@ const Homeselection = ({ className = "" }) => {
 
   // Voice over for the Homescreen
   useEffect(() => {
-    const utteranceText = "Welcome to MediSation. Press one for temperature measurement... press two for questioning... press three for pulse measurement";
+    const utteranceText = "Welcome to MediSation. Press one for temperature measurement... press two to ask any medical inquiries... press three for pulse measurement";
     speak(utteranceText);
 
     const handleKeyPress = (event) => {
@@ -132,11 +132,8 @@ const Homeselection = ({ className = "" }) => {
             <div className={styles.frameWrapper}>
               <div className={styles.frameContainer}>
                 <div className={styles.vitalSignsWrapper}>
-                  <h1 className={styles.vitalSigns}>VITAL SIGNS</h1>
+                  <h1 className={styles.vitalSigns}>Measure your vital signs by selecting options below</h1>
                 </div>
-                <div
-                  className={styles.note}
-                >{`Measure your vital signs by selecting options below `}</div>
               </div>
             </div>
             <div className={styles.frameDiv}>
