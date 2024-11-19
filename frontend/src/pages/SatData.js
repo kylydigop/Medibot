@@ -13,7 +13,7 @@ const SaturationData = () => {
     setLoading(true);
 
     // Fetch the data from the specified IP
-    fetch("http://10.42.0.250/poxdata")
+    fetch("http://192.168.137.250/poxdata")
       .then((response) => response.json())
       .then((data) => {
         // Assuming the JSON data contains keys "SpO2" and "BPM"
