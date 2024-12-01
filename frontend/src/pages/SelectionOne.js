@@ -19,14 +19,14 @@ const SelectionOne = () => {
 
   // Voice over sa Homescreen.
   useEffect(() => {
-    const utteranceText = "Temperature Selected...... Here is the guide to starting the temperature measurement... First, you must put your right index finger on the temperature sensor in the middle.... Make sure you align your finger properly at the tip of the sensor... Do not remove your index finger from the sensor.. when the processing starts to avoid an error results.. and wait result patiently before removing your finger. Press 1 to start... and Press 2 to return to home screen.";
+    const utteranceText = "Temperature Selected...... Here is the guide to starting the temperature measurement... First, you must put your right index finger on the temperature sensor in the left.... Make sure you align your finger properly at the tip of the sensor... Do not remove your index finger from the sensor.. when the processing starts to avoid an error results.. and wait result patiently before removing your finger. Press 4 to start... or Press 9 to return to home screen.";
     speak(utteranceText);
 
     // Add event listener for keydown event to listen for number pad keys
     const handleKeyPress = (event) => {
-      if (event.key === "1") {
+      if (event.key === "4") {
         navigate("/temp-data");
-      } else if (event.key === "2") {
+      } else if (event.key === "9") {
         navigate("/");
       }
     };

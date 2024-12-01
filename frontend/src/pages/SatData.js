@@ -8,32 +8,56 @@ const SaturationData = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({ spo2: null, pulse: null });
+  const [retryCount, setRetryCount] = useState(0);
+
+  const maxRetries = 3; // Maximum number of retry attempts
 
   useEffect(() => {
-    setLoading(true);
+    const fetchData = () => {
+      setLoading(true);
 
-    // Fetch the data from the specified IP
-    fetch("http://10.42.0.250/poxdata")
-      .then((response) => response.json())
-      .then((data) => {
-        // Assuming the JSON data contains keys "SpO2" and "BPM"
-        setData({
-          spo2: data.SpO2, // Oxygen saturation data (SpO2)
-          pulse: data.BPM,  // Pulse rate data (BPM)
+      // Fetch the data from the specified IP
+      fetch("http://192.168.137.250/poxdata")
+        .then((response) => response.json())
+        .then((data) => {
+          const spo2 = data.SpO2; // Oxygen saturation
+          const pulse = data.BPM; // Pulse rate
+
+          if (spo2 <= 0 || spo2 < 60) {
+            // If SpO2 is invalid, retry fetching
+            if (retryCount < maxRetries) {
+              speak("Invalid reading. Retrying...");
+              setRetryCount((prev) => prev + 1);
+            } else {
+              speak(
+                "Unable to get a valid reading after multiple attempts. Please try again."
+              );
+              setLoading(false);
+            }
+          } else {
+            // If data is valid, update state
+            setData({ spo2, pulse });
+            setLoading(false);
+
+            // Announce the results via text-to-speech
+            speak(
+              `Your Vital Sign Result is SpO2 ${spo2}% and Pulse Rate is ${pulse} beats per minute.`
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching the data:", error);
+          speak("Error fetching data. Please try again.");
+          setLoading(false);
         });
-        setLoading(false);
-
-        // Announce the results via text-to-speech
-        speak(`Your Vital Sign Result is SpO2 ${data.SpO2}% and Pulse Rate is ${data.BPM} beats per minute.`);
-      })
-      .catch((error) => {
-        console.error("Error fetching the data:", error);
-        setLoading(false);
-      });
+    };
 
     // Initial voice message
-    speak("Processing.... Please do not remove your finger while getting the result.");
-  }, []);
+    speak(
+      "Processing.... Please do not remove your finger while getting the result."
+    );
+    fetchData();
+  }, [retryCount]);
 
   const onHome2StreamlineCoresvgClick = useCallback(() => {
     navigate("/");
@@ -51,9 +75,9 @@ const SaturationData = () => {
   const speak = (text) => {
     const speechSynthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.pitch = 1.2;
+    utterance.pitch = 0.6;
     utterance.volume = 1;
-    utterance.rate = 0.9;
+    utterance.rate = 0.6;
     speechSynthesis.speak(utterance);
   };
 
@@ -119,7 +143,11 @@ const SaturationData = () => {
                     <div className="result-temp-container">
                       <h1 className="result-temp2">
                         <p className="hb">Pulse rate</p>
-                        {data.pulse !== null ? <p>{data.pulse} BPM</p> : <p> Loading</p>}
+                        {data.pulse !== null ? (
+                          <p>{data.pulse} BPM</p>
+                        ) : (
+                          <p> Loading</p>
+                        )}
                       </h1>
                     </div>
                   </div>

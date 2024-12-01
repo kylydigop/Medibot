@@ -292,7 +292,7 @@
   width: 700px;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 51px;
+  gap: 100px;
 }
 .homeselection,
 .homeselectionInner {
@@ -301,7 +301,7 @@
   box-sizing: border-box;
 }
 .homeselectionInner {
-  width: 990px;
+  width: 100vw;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
@@ -312,7 +312,7 @@
   font-family: var(--font-inter);
 }
 .homeselection {
-  width: 1024px;
+  width: 100vw;
   background-color: var(--color-white);
   flex-direction: column;
   align-items: flex-end;
@@ -342,7 +342,7 @@
     padding-right: var(--padding-14xl);
   }
 }
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 100%) {
   .healthKiosk {
     font-size: var(--font-size-3xl);
   }

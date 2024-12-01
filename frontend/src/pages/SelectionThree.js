@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMicCircleOutline } from "react-icons/io5";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
@@ -9,10 +9,15 @@ const SelectionThree = () => {
   const [recognizedText, setRecognizedText] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [messages, setMessages] = useState([
     { type: "bot", text: "Hello there! Ask me any of your medical queries!" },
   ]);
   const [recognition, setRecognition] = useState(null);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
 
   // Function to handle going back home
   const handleHomeClick = useCallback(async () => {
@@ -32,27 +37,30 @@ const SelectionThree = () => {
 
   // Handle Text-to-Speech on page load
   useEffect(() => {
-    const initialMessage = "Hello there! Ask me any of your medical queries. Press 1 to start asking questions. Press 0 to go back.";
+    const initialMessage = "Hello there! Ask me any of your medical queries. Press 8 to start asking questions. Press 9 to go back.";
     speak(initialMessage);
   }, []);
 
   // Handle keyboard input
   useEffect(() => {
     const handleKeyPress = (event) => {
-      if (event.code === "Digit1") {
+      if (showModal) return;
+  
+      if (event.key === "8") {
         stopSpeaking();
         startListening();
-      } else if (event.code === "Digit0") {
+      } else if (event.key === "9") {
         stopSpeaking();
-        handleHomeClick(); // Go back home when '0' is pressed
+        handleHomeClick();
       }
     };
-
+  
     window.addEventListener("keydown", handleKeyPress);
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  }, [handleHomeClick]);
+  }, [showModal, handleHomeClick, recognition]); // Added recognition
+  
 
   // Initialize speech recognition
   useEffect(() => {
@@ -74,7 +82,13 @@ const SelectionThree = () => {
     };
 
     newRecognition.onresult = (event) => {
-      const speechToText = event.results[0][0].transcript;
+      let speechToText = event.results[0][0].transcript.trim();
+
+      // Remove "Listening" if it appears at the beginning
+      if (speechToText.startsWith("Listening")) {
+        speechToText = speechToText.replace(/^Listening\s*/i, ""); // Removes "Listening" and any trailing space
+      }
+
       setRecognizedText(speechToText);
       handleSendMessage(speechToText);
       stopListening();
@@ -94,12 +108,16 @@ const SelectionThree = () => {
 
   // Start listening for speech input
   const startListening = () => {
-    if (recognition && !isListening) {
+    if (!recognition) {
+      console.warn("Speech recognition not initialized yet.");
+      return;
+    }
+    if (!isListening) {
       setIsListening(true);
       recognition.start();
     }
   };
-
+  
   // Stop listening for speech input
   const stopListening = () => {
     if (recognition && isListening) {
@@ -120,7 +138,12 @@ const SelectionThree = () => {
     if (isListening) {
       stopListening();
     } else {
-      startListening();
+      setTimeout(() => {
+        startListening();
+      }, 1000);
+      setTimeout(() => {
+        startListening();
+      }, 1000);
     }
   };
 
@@ -134,9 +157,21 @@ const SelectionThree = () => {
     }
   };
 
+  const truncateToNearestPeriod = (text) => {
+    const lastPeriodIndex = text.lastIndexOf(".");
+    if (lastPeriodIndex !== -1 && lastPeriodIndex !== text.length - 1) {
+      return text.substring(0, lastPeriodIndex + 1);
+    }
+    return text;
+  };
+
   // Send message to API and handle bot response
   const sendMessageToAPI = async (msg) => {
     try {
+      setIsLoading(true);
+      setShowModal(true); // Show modal while processing
+      setIsLoading(true);
+      setShowModal(true); // Show modal while processing
       const response = await fetch("http://localhost:5000/chat", {
         method: "POST",
         headers: {
@@ -146,32 +181,68 @@ const SelectionThree = () => {
         body: JSON.stringify({ sender: "user", msg: msg }),
       }).then((res) => res.json());
 
-      const botMessage = { type: "bot", text: response.answer || "No response from server" };
+      const botResponse = truncateToNearestPeriod(response.answer || "No response from server");
+      const botMessage = { type: "bot", text: botResponse };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
-      speak(botMessage.text);
+      
+      // Add a follow-up message after bot message has finished speaking
+      const followUpMessage = "Do you have further inquiry? Press 8 to ask questions, press 9 to go back.";
+      speak(botMessage.text, () => {
+        speak(followUpMessage);
+      });
     } catch (error) {
       console.error("Error fetching from API:", error);
     } finally {
       setIsLoading(false);
+      setShowModal(false); 
+      setShowModal(false); 
     }
   };
 
   // Text-to-Speech function
-  const speak = (text) => {
+  const speak = (text, callback=null) => {
     stopSpeaking();
     const speechSynthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.pitch = 1.2;
     utterance.volume = 1;
     utterance.rate = 1;
+    utterance.onend = () => {
+      if (callback) callback();
+    };
+  
     speechSynthesis.speak(utterance);
   };
 
+  useEffect(() => {
+    let intervalId;
+  
+    if (showModal) {
+      speak("Processing, please wait for a few seconds.");
+      intervalId = setInterval(() => {
+        speak("Please wait for a few seconds.");
+      }, 20000); // Retrigger every 10 seconds
+    }
+  
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId); // Clear interval when modal is hidden or component unmounts
+      }
+    };
+  }, [showModal]);
+
   return (
-    <Container>
-      <div className="selectionthree">
+    <Container fluid className="selectionthree">
+        {/* Modal Section */}
+        {showModal && (
+          <div className="processing-modal">
+            <p>{isListening ? "Listening..." : "Processing..."}</p>
+            <div className="custom-spinner"></div>
+          </div>
+        )}
+
         {/* Header Section */}
-        <Row style={{ height: "15%", width: "100%" }}>
+        <Row className="header-section">
           <section className="rectangle-parent">
             <div className="rectangle-div" />
             <div className="speech-language-therapy-parent">
@@ -193,7 +264,7 @@ const SelectionThree = () => {
         </Row>
 
         {/* Chat Display Section */}
-        <Row style={{ height: "75%", width: "100%", overflowY: "auto" }}>
+        <Row className="body-section">
           <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
             {messages.map((msg, index) => (
               <div
@@ -220,19 +291,18 @@ const SelectionThree = () => {
         </Row>
 
         {/* Microphone and Loading Spinner Section */}
-        <Row className="justify-content-center align-items-center" style={{ height: "10%" }}>
+        <Row className="footer-section justify-content-center align-items-center">
           <Col xs={12} className="text-center">
-            {isLoading ? (
-              <Spinner animation="border" style={{ color: "black", width: "3rem", height: "3rem" }}/>
-            ) : (
-              <div className="micbtn" onClick={toggleListening}>
-                <IoMicCircleOutline size={50} color={isListening ? "red" : "black"} />
-                {isListening && <div className="listening-text">Listening...</div>}
-              </div>
-            )}
+            <div className="micbtn" onClick={toggleListening}>
+              <IoMicCircleOutline size={100} color={isListening ? "red" : "black"} />
+              {isListening && <div className="listening-text">Listening...</div>}
+            </div>
+            <div className="micbtn" onClick={toggleListening}>
+              <IoMicCircleOutline size={100} color={isListening ? "red" : "black"} />
+              {isListening && <div className="listening-text">Listening...</div>}
+            </div>
           </Col>
         </Row>
-      </div>
     </Container>
   );
 };

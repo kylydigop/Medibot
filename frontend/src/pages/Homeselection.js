@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PropTypes from 'prop-types';
-import styles from "./Homeselection.module.css";
+import NavBar from "../components/NavBar";
+import Modal from "../components/Modal";
+import PropTypes from "prop-types";
 
-const Homeselection = ({ className = "" }) => {
+const Homeselection = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [nextPath, setNextPath] = useState("");
@@ -14,21 +15,18 @@ const Homeselection = ({ className = "" }) => {
     const fetchVoices = () => {
       const speechSynthesis = window.speechSynthesis;
       let voices = speechSynthesis.getVoices();
-      
-      const defaultVoice = voices.find(voice => 
-        voice.name === "en-us-nyc" && 
-        voice.lang === "en-US"
+
+      const defaultVoice = voices.find(
+        (voice) => voice.name === "en-us-nyc" && voice.lang === "en-US"
       );
 
       setSelectedVoice(defaultVoice || voices[0]);
 
-      // In case voices are not immediately available
       speechSynthesis.onvoiceschanged = () => {
         voices = speechSynthesis.getVoices();
-        
-        const defaultVoice = voices.find(voice => 
-          voice.name === "en-us-nyc" && 
-          voice.lang === "en-US"
+
+        const defaultVoice = voices.find(
+          (voice) => voice.name === "en-us-nyc" && voice.lang === "en-US"
         );
 
         setSelectedVoice(defaultVoice || voices[0]);
@@ -56,7 +54,8 @@ const Homeselection = ({ className = "" }) => {
 
   // Voice over for the Homescreen
   useEffect(() => {
-    const utteranceText = "Welcome to MediSation. Press one for temperature measurement... press two for questioning... press three for pulse measurement";
+    const utteranceText =
+      "Welcome to MediSation. Press one for temperature measurement... press two to ask any medical inquiries... press three for pulse measurement";
     speak(utteranceText);
 
     const handleKeyPress = (event) => {
@@ -89,7 +88,9 @@ const Homeselection = ({ className = "" }) => {
 
   useEffect(() => {
     if (showModal) {
-      speak("Are you sure you want to proceed?.. Press one to confirm... press two to cancel...");
+      speak(
+        "Are you sure you want to proceed?.. Press one to confirm... press two to cancel..."
+      );
     }
   }, [showModal, selectedVoice]);
 
@@ -101,7 +102,7 @@ const Homeselection = ({ className = "" }) => {
     handleNavigation("/selectiontwo");
   }, []);
 
-  const onCircleImageClick = useCallback(() => {
+  const onAskContainerClick = useCallback(() => {
     handleNavigation("/selectionthree");
   }, []);
 
@@ -116,87 +117,151 @@ const Homeselection = ({ className = "" }) => {
   };
 
   return (
-    <div className={[styles.homeselection, className].join(" ")}>
-      <section className={styles.rectangleParent}>
-        <header className={styles.frameChild} />
-        <div className={styles.logonew1Parent}>
-          <img className={styles.logonew1Icon} alt="" src="/logo2.png" />
-          <div className={styles.healthKioskWrapper}>
-            <h1 className={styles.healthKiosk}>MediSation</h1>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+      }}
+    >
+      <div style={{ height: "15vh", flexShrink: 0 }}>
+        <NavBar />
+      </div>
+
+      <div
+        style={{
+          height: "85vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "4rem",
+            marginTop: "1rem",
+          }}
+        >
+          {/* Blue Circle */}
+          <div
+            onClick={onTempContainerClick}
+            style={{
+              cursor: "pointer",
+              backgroundColor: "#007BFF",
+              borderRadius: "50%",
+              width: "20vw",
+              height: "20vw",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              border: "5px solid black",
+              textAlign: "center",
+              padding: "10px",
+            }}
+          >
+            <img
+              src="/thermometer1.png"
+              alt="Temperature"
+              style={{
+                width: "12vw",
+                height: "12vw",
+              }}
+            />
+            <span
+              style={{
+                fontSize: "2rem",
+                color: "black",
+                fontWeight: "bold",
+                marginTop: "0.5rem",
+              }}
+            >
+              Temperature
+            </span>
+          </div>
+
+          {/* Large Center Circle */}
+          <div
+            onClick={onAskContainerClick}
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img
+              src="/ask-icon.png"
+              alt="Ask"
+              style={{
+                width: "25vw",
+                height: "25vw",
+              }}
+            />
+          </div>
+
+          {/* Red Circle */}
+          <div
+            onClick={onO2SatContainerClick}
+            style={{
+              cursor: "pointer",
+              backgroundColor: "#FF0000",
+              borderRadius: "50%",
+              width: "20vw",
+              height: "20vw",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              border: "5px solid black",
+              textAlign: "center",
+              padding: "10px",
+            }}
+          >
+            <img
+              src="/pulseox.png"
+              alt="Pulse Oximeter"
+              style={{
+                width: "15vw",
+                height: "10vw",
+              }}
+            />
+            <span
+              style={{
+                fontSize: "2rem",
+                color: "black",
+                fontWeight: "bold",
+                marginTop: "0.5rem"
+              }}
+            >
+              Pulse Oximeter
+            </span>
           </div>
         </div>
-      </section>
-      <section className={styles.homeselectionInner}>
-        <div className={styles.frameParent}>
-          <div className={styles.frameGroup}>
-            <div className={styles.frameWrapper}>
-              <div className={styles.frameContainer}>
-                <div className={styles.vitalSignsWrapper}>
-                  <h1 className={styles.vitalSigns}>VITAL SIGNS</h1>
-                </div>
-                <div
-                  className={styles.note}
-                >{`Measure your vital signs by selecting options below `}</div>
-              </div>
-            </div>
-            <div className={styles.frameDiv}>
-              <div className={styles.tempWrapper}>
-                <div className={styles.temp} onClick={onTempContainerClick}>
-                  <div className={styles.circleParent}>
-                    <div className={styles.circle} />
-                    <img
-                      className={styles.thermometerIcon}
-                      loading="lazy"
-                      alt=""
-                      src="/thermometer1.png"
-                    />
-                  </div>
-                  <b className={styles.temperature}>Temperature</b>
-                </div>
-              </div>
-              <div className={styles.frameWrapper1}>
-                <div className={styles.circleGroup}>
-                  <img
-                    className={styles.circleIcon}
-                    loading="lazy"
-                    alt=""
-                    src="/2circle@2x.png"
-                    onClick={onCircleImageClick}
-                  />
-                  <b className={styles.ask}>ASK?</b>
-                </div>
-              </div>
-              <div className={styles.o2Sat} onClick={onO2SatContainerClick}>
-                <img className={styles.frameIcon} alt="" src="/frame.svg" />
-                <div className={styles.o2Parent}>
-                  <div className={styles.o2}>Pulse Oximeter</div>
-                  <img
-                    className={styles.lungsIcon}
-                    loading="lazy"
-                    alt=""
-                    src="/pulseox.png"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.noteTemperatureAndOxygenSWrapper}>
-            <p className={styles.noteTemperatureAnd}>
-              NOTE: Temperature Sensor and Pulse Oximeter have their own individual
-              sensors.
-            </p>
-          </div>
-        </div>
-      </section>
+
+        <p
+          style={{
+            marginTop: "1rem",
+            fontSize: "1rem",
+            color: "#555",
+          }}
+        >
+          NOTE: Temperature Sensor and Pulse Oximeter have their own individual
+          sensors.
+        </p>
+      </div>
 
       {showModal && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <p>Are you sure you want to proceed?</p>
-            <button onClick={handleConfirm}>Yes</button>
-            <button onClick={handleCancel}>No</button>
-          </div>
-        </div>
+        <Modal
+          message="Are you sure you want to proceed?"
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+        />
       )}
     </div>
   );
