@@ -9,6 +9,7 @@ const Homeselection = () => {
   const [showModal, setShowModal] = useState(false);
   const [nextPath, setNextPath] = useState("");
   const [selectedVoice, setSelectedVoice] = useState(null);
+  const [distanceBelowThreshold, setDistanceBelowThreshold] = useState(false);
 
   // Fetch the list of available voices
   useEffect(() => {
@@ -52,34 +53,63 @@ const Homeselection = () => {
     speechSynthesis.speak(utterance);
   };
 
-  // Voice over for the Homescreen
+  // Poll the distance endpoint and handle response
   useEffect(() => {
-    const utteranceText =
-      "Welcome to MediSation. Press one for temperature measurement... press two to ask any medical inquiries... press three for pulse measurement";
-    speak(utteranceText);
+    let belowThresholdTime = 0;
+    const threshold = 10;
+    const duration = 5000; // 5 seconds
 
-    const handleKeyPress = (event) => {
-      if (event.key === "1") {
-        handleNavigation("/selectionone");
-      } else if (event.key === "2") {
-        handleNavigation("/selectionthree");
-      } else if (event.key === "3") {
-        handleNavigation("/selectiontwo");
+    const fetchDistance = async () => {
+      try {
+        const response = await fetch("http://192.168.137.250/distance");
+        const data = await response.json();
+        console.log("Distance data:", data);
+
+        if (data.Distance < threshold) {
+          belowThresholdTime += 1000; // Increment time below threshold
+        } else {
+          belowThresholdTime = 0; // Reset if value is above threshold
+        }
+
+        if (belowThresholdTime >= duration) {
+          setDistanceBelowThreshold(true);
+        } else {
+          setDistanceBelowThreshold(false);
+        }
+      } catch (error) {
+        console.error("Error fetching distance data:", error);
       }
     };
 
-    window.addEventListener("keydown", handleKeyPress);
+    const interval = setInterval(fetchDistance, 1000);
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyPress);
-    };
-  }, [selectedVoice]);
-
-  useEffect(() => {
-    return () => {
-      window.speechSynthesis.cancel();
-    };
+    return () => clearInterval(interval);
   }, []);
+
+  // Voice over for the Homescreen
+  useEffect(() => {
+    if (distanceBelowThreshold) {
+      const utteranceText =
+        "Welcome to MediSation. Press one for temperature measurement... press two to ask any medical inquiries... press three for pulse measurement";
+      speak(utteranceText);
+
+      const handleKeyPress = (event) => {
+        if (event.key === "1") {
+          handleNavigation("/selectionone");
+        } else if (event.key === "2") {
+          handleNavigation("/selectionthree");
+        } else if (event.key === "3") {
+          handleNavigation("/selectiontwo");
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyPress);
+
+      return () => {
+        window.removeEventListener("keydown", handleKeyPress);
+      };
+    }
+  }, [distanceBelowThreshold]);
 
   const handleNavigation = (path) => {
     setNextPath(path);
