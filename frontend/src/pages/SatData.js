@@ -17,7 +17,7 @@ const SaturationData = () => {
       setLoading(true);
 
       // Fetch the data from the specified IP
-      fetch("http://192.168.137.250/poxdata")
+      fetch("http://192.168.6.150/poxdata")
         .then((response) => response.json())
         .then((data) => {
           const spo2 = data.SpO2; // Oxygen saturation

@@ -19,7 +19,7 @@ const TempData = () => {
 
   const fetchTemperatureData = async () => {
     try {
-      const response = await fetch("http://192.168.137.250/tempdata");
+      const response = await fetch("http://192.168.6.150/tempdata");
       if (!response.ok) {
         throw new Error("Failed to fetch temperature data");
       }
