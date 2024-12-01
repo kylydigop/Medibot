@@ -20,10 +20,6 @@ const SelectionThree = () => {
     setShowModal(!showModal);
   };
 
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
-
   // Function to handle going back home
   const handleHomeClick = useCallback(async () => {
     try {
@@ -170,14 +166,6 @@ const SelectionThree = () => {
     return text;
   };
 
-  const truncateToNearestPeriod = (text) => {
-    const lastPeriodIndex = text.lastIndexOf(".");
-    if (lastPeriodIndex !== -1 && lastPeriodIndex !== text.length - 1) {
-      return text.substring(0, lastPeriodIndex + 1);
-    }
-    return text;
-  };
-
   // Send message to API and handle bot response
   const sendMessageToAPI = async (msg) => {
     try {
@@ -196,8 +184,6 @@ const SelectionThree = () => {
         body: JSON.stringify({ sender: "user", msg: msg }),
       }).then((res) => res.json());
 
-      const botResponse = truncateToNearestPeriod(response.answer || "No response from server");
-      const botMessage = { type: "bot", text: botResponse };
       const botResponse = truncateToNearestPeriod(response.answer || "No response from server");
       const botMessage = { type: "bot", text: botResponse };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
@@ -264,17 +250,7 @@ const SelectionThree = () => {
           </div>
         )}
 
-    <Container fluid className="selectionthree">
-        {/* Modal Section */}
-        {showModal && (
-          <div className="processing-modal">
-            <p>{isListening ? "Listening..." : "Processing..."}</p>
-            <div className="custom-spinner"></div>
-          </div>
-        )}
-
         {/* Header Section */}
-        <Row className="header-section">
         <Row className="header-section">
           <section className="rectangle-parent">
             <div className="rectangle-div" />
