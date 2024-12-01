@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMicCircleOutline } from "react-icons/io5";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
@@ -14,6 +15,10 @@ const SelectionThree = () => {
     { type: "bot", text: "Hello there! Ask me any of your medical queries!" },
   ]);
   const [recognition, setRecognition] = useState(null);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -165,9 +170,19 @@ const SelectionThree = () => {
     return text;
   };
 
+  const truncateToNearestPeriod = (text) => {
+    const lastPeriodIndex = text.lastIndexOf(".");
+    if (lastPeriodIndex !== -1 && lastPeriodIndex !== text.length - 1) {
+      return text.substring(0, lastPeriodIndex + 1);
+    }
+    return text;
+  };
+
   // Send message to API and handle bot response
   const sendMessageToAPI = async (msg) => {
     try {
+      setIsLoading(true);
+      setShowModal(true); // Show modal while processing
       setIsLoading(true);
       setShowModal(true); // Show modal while processing
       setIsLoading(true);
@@ -181,6 +196,8 @@ const SelectionThree = () => {
         body: JSON.stringify({ sender: "user", msg: msg }),
       }).then((res) => res.json());
 
+      const botResponse = truncateToNearestPeriod(response.answer || "No response from server");
+      const botMessage = { type: "bot", text: botResponse };
       const botResponse = truncateToNearestPeriod(response.answer || "No response from server");
       const botMessage = { type: "bot", text: botResponse };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
@@ -221,7 +238,7 @@ const SelectionThree = () => {
       speak("Processing, please wait for a few seconds.");
       intervalId = setInterval(() => {
         speak("Please wait for a few seconds.");
-      }, 20000); // Retrigger every 10 seconds
+      }, 30000); // Retrigger every 30 seconds
     }
   
     return () => {
@@ -230,6 +247,12 @@ const SelectionThree = () => {
       }
     };
   }, [showModal]);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <Container fluid className="selectionthree">
@@ -241,7 +264,17 @@ const SelectionThree = () => {
           </div>
         )}
 
+    <Container fluid className="selectionthree">
+        {/* Modal Section */}
+        {showModal && (
+          <div className="processing-modal">
+            <p>{isListening ? "Listening..." : "Processing..."}</p>
+            <div className="custom-spinner"></div>
+          </div>
+        )}
+
         {/* Header Section */}
+        <Row className="header-section">
         <Row className="header-section">
           <section className="rectangle-parent">
             <div className="rectangle-div" />
@@ -265,7 +298,16 @@ const SelectionThree = () => {
 
         {/* Chat Display Section */}
         <Row className="body-section">
-          <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
+          <div
+            ref={chatContainerRef} // Attach the ref to the container
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              maxHeight: "400px", // Add a max height for scrolling
+              overflowY: "auto",  // Enable scrolling
+            }}
+          >
             {messages.map((msg, index) => (
               <div
                 key={index}
@@ -293,10 +335,6 @@ const SelectionThree = () => {
         {/* Microphone and Loading Spinner Section */}
         <Row className="footer-section justify-content-center align-items-center">
           <Col xs={12} className="text-center">
-            <div className="micbtn" onClick={toggleListening}>
-              <IoMicCircleOutline size={100} color={isListening ? "red" : "black"} />
-              {isListening && <div className="listening-text">Listening...</div>}
-            </div>
             <div className="micbtn" onClick={toggleListening}>
               <IoMicCircleOutline size={100} color={isListening ? "red" : "black"} />
               {isListening && <div className="listening-text">Listening...</div>}
