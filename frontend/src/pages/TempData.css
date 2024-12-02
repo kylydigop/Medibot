@@ -1,195 +1,122 @@
-.screen-14-tpone,
-.screen-21-tpone {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: var(--color-white);
-  width: 100%;
-  height: 100%;
-  display: none;
-}
-.temp-data-child-tpone {
-  position: absolute;
-  top: -1px;
-  left: 0;
-  background-color: var(--color-darkslategray-100);
-  width: 1024px;
-  height: 90px;
-}
-
-
-.p1-tpone {
-  margin: 0;
-  
-  text-align: center;
-}
-
-.normal2-tpone {
-  position: absolute;
-  top: 50%; /* Position the text vertically in the middle */
-  left: 50%; /* Position the text horizontally in the middle */
-  transform: translate(-50%, -50%); /* Adjust for center alignment */
-  text-align: center; /* Align the text horizontally */
-  white-space: nowrap; 
-}
-
-.result-temp4-tpone {
-  position: absolute;
-  top: 200px;
-  left: 61.2px;
-  display: inline-block;
-  width: 136.7px;
-  height: 83px;
-}
-.thermometer-icon2-tpone {
-  position: absolute;
-  top: 24.8px;
-  left: 61.4px;
-  width: 143.4px;
-  height: 149px;
-  overflow: hidden;
-}
-.result-temp-parent-tpone {
-  position: absolute;
-  top: 182px;
-  left: 390px;
-  width: 257px;
-  height: 347px;
-  font-size: var(--font-size-13xl);
-}
-.vital-signs-result1-tpone {
-  margin: 0;
-  position: absolute;
-  top: 105px;
-  left: 358px;
-  font-size: var(--font-size-17xl);
-  font-weight: 900;
-  font-family: inherit;
-  text-align: left;
-}
-.temp-data-item-tpone {
-  position: absolute;
-  top: 580.5px;
-  left: 989.3px;
-  width: 14px;
-  height: 0;
-  object-fit: contain;
-}
-.temp-data-inner-tpone {
-  position: absolute;
-  top: 500px;
-  left: 927px;
-  width: 83.3px;
-  height: 84.4px;
-  cursor: pointer;
-}
-.vector-icon5-tpone {
-  position: absolute;
-  height: 7.67%;
-  width: 4.49%;
-  top: 3.33%;
-  right: 8.98%;
-  bottom: 89%;
-  left: 86.52%;
-  max-width: 100%;
-  overflow: hidden;
-  max-height: 100%;
-}
-.logomedisation-2-icon3-tpone {
-  position: absolute;
-  width: calc(100% - 17px);
-  top: 3px;
-  right: 9px;
-  left: 8px;
-  max-width: 100%;
-  overflow: hidden;
-  height: 73px;
-  object-fit: cover;
-}
-.speech-language-therapy3-tpone {
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-  background-color: transparent;
-  position: absolute;
-  height: 100%; /* Adjust height as needed */
-  top: 0;
-  bottom: 0;
-  left: 0; /* Corrected from `left: 40` to `left: 40px` */
-  width: 90px; /* Adjusted width to make the logo smaller */
-  overflow: hidden;
-}
-
-.health-kiosk4-tpone {
-  margin: 0;
-  position: absolute;
-  top: 20px;
-  left: 94px;
-  font-size: inherit;
-  font-weight: 900;
-  font-family: inherit;
-  display: inline-block;
-  width: 235px;
-  height: 44px;
-}
-.group-div-tpone {
-  position: absolute;
-  top: 4px;
-  left: 46px;
-  width: 329px;
-  height: 80px;
-  text-align: left;
-  font-size: var(--font-size-17xl);
-  color: var(--color-white);
-}
-.temp-data-tpone {
-  width: 100%;
-  height: 600px;
-  position: relative;
-  background-color: var(--color-white);
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  font-size: var(--font-size-base);
-  color: var(--dark);
-  font-family: var(--font-inter);
-}
-@media screen and (max-width: 767px) {
-  .result-temp4-tpone {
-    font-size: var(--font-size-7xl);
-  }
-  .health-kiosk4-tpone,
-  .vital-signs-result1-tpone {
-    font-size: var(--font-size-10xl);
-  }
-}
-@media screen and (max-width: 450px) {
-  .result-temp4-tpone,
-  .temperature2-tpone {
-    font-size: var(--font-size-lgi);
-  }
-  .health-kiosk4-tpone,
-  .vital-signs-result1-tpone {
-    font-size: var(--font-size-3xl);
-  }
+.tempdata-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .loader-container {
-  text-align: center; 
   display: flex; 
+  text-align: center; 
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 80vh;
+  height: 100%;
   position: relative;
 }
 
 .loading-text {
   position: absolute; 
-  /* bottom: 20px; */
-  font-size: 25px; 
+  font-size: 2rem; 
   color: #050b1d;
-  height: -80vh;
   font-weight: 900;
-  font-family: inherit;
+  font-family: Inter;
+}
+
+.result-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.navbar-container {
+  height: 15vh;
+  flex-shrink: 0;
+}
+
+.left-column {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start; 
+  align-items: flex-end; 
+}
+
+.replay-container {
+  display: flex;
+  flex-direction: column; /* Stack icon and text vertically */
+  align-items: center; /* Center align text under the icon */
+  position: absolute;
+  bottom: 3vh;
+  left: 2vw;
+}
+
+.replay-icon {
+  cursor: pointer;
+}
+
+.replay-text {
+  margin-top: 0.5rem; /* Add space between icon and text */
+  font-size: 1.8rem;
+  font-family: Inter, sans-serif;
+  color: #050b1d;
+  font-weight: bold;
+}
+
+.middle-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.result-title {
+  text-align: center;
+  font-size: 3rem;
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+}
+
+.temperature,
+.category {
+  text-align: center;
+  font-size: 2.5rem;
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+}
+
+.right-column {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+.arrow-container {
+  display: flex;
+  flex-direction: column; /* Stack icon and text vertically */
+  align-items: center; /* Center align text under the icon */
+  position: absolute;
+  bottom: 3vh;
+  right: 2vw;
+}
+
+.arrow-icon {
+  cursor: pointer;
+}
+
+.arrow-text {
+  margin-top: 0.5rem; /* Add space between icon and text */
+  font-size: 1.8rem;
+  font-family: Inter, sans-serif;
+  color: #050b1d;
+  font-weight: 900;
+}
+
+.main-content {
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
