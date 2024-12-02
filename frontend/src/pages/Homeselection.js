@@ -62,23 +62,13 @@ const Homeselection = () => {
 
   // Poll the distance endpoint and handle response
   useEffect(() => {
-    let belowThresholdTime = 0;
-    const threshold = 10;
-    const duration = 5000; // 5 seconds
-
     const fetchDistance = async () => {
       try {
-        const response = await fetch("http://192.168.137.250/distance");
+        const response = await fetch("http://192.168.6.150/distance");
         const data = await response.json();
         console.log("Distance data:", data);
 
-        if (data.Distance < threshold) {
-          belowThresholdTime += 1000; // Increment time below threshold
-        } else {
-          belowThresholdTime = 0; // Reset if value is above threshold
-        }
-
-        if (belowThresholdTime >= duration) {
+        if (data.Distance < 20) {
           setDistanceBelowThreshold(true);
         } else {
           setDistanceBelowThreshold(false);
