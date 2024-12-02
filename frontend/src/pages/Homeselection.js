@@ -53,6 +53,13 @@ const Homeselection = () => {
     speechSynthesis.speak(utterance);
   };
 
+  const cancelSpeech = () => {
+    const speechSynthesis = window.speechSynthesis;
+    if (speechSynthesis.speaking) {
+      speechSynthesis.cancel(); // Stop speaking
+    }
+  };
+
   // Poll the distance endpoint and handle response
   useEffect(() => {
     let belowThresholdTime = 0;
@@ -86,43 +93,40 @@ const Homeselection = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Voice over for the Homescreen
+  // Voice over for the Homescreen and key press handling
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "1") {
+        handleNavigation("/selectionone");
+      } else if (event.key === "2") {
+        handleNavigation("/selectionthree");
+      } else if (event.key === "3") {
+        handleNavigation("/selectiontwo");
+      }
+    };
+  
+    // Add the event listener for keypress
+    window.addEventListener("keydown", handleKeyPress);
+  
+    // Cleanup the event listener
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []); // Always listen for keypress
+  
   useEffect(() => {
     if (distanceBelowThreshold) {
       const utteranceText =
         "Welcome to MediSation. Press one for temperature measurement... press two to ask any medical inquiries... press three for pulse measurement";
       speak(utteranceText);
-
-      const handleKeyPress = (event) => {
-        if (event.key === "1") {
-          handleNavigation("/selectionone");
-        } else if (event.key === "2") {
-          handleNavigation("/selectionthree");
-        } else if (event.key === "3") {
-          handleNavigation("/selectiontwo");
-        }
-      };
-
-      window.addEventListener("keydown", handleKeyPress);
-
-      return () => {
-        window.removeEventListener("keydown", handleKeyPress);
-      };
     }
-  }, [distanceBelowThreshold]);
+  }, [distanceBelowThreshold, selectedVoice]); // Trigger speech only based on threshold
+  
 
   const handleNavigation = (path) => {
     setNextPath(path);
     setShowModal(true);
   };
-
-  useEffect(() => {
-    if (showModal) {
-      speak(
-        "Are you sure you want to proceed?.. Press one to confirm... press two to cancel..."
-      );
-    }
-  }, [showModal, selectedVoice]);
 
   const onTempContainerClick = useCallback(() => {
     handleNavigation("/selectionone");
@@ -266,7 +270,7 @@ const Homeselection = () => {
                 fontSize: "2rem",
                 color: "black",
                 fontWeight: "bold",
-                marginTop: "0.5rem"
+                marginTop: "0.5rem",
               }}
             >
               Pulse Oximeter
@@ -291,6 +295,8 @@ const Homeselection = () => {
           message="Are you sure you want to proceed?"
           onConfirm={handleConfirm}
           onCancel={handleCancel}
+          speak={speak}
+          cancelSpeech={cancelSpeech}
         />
       )}
     </div>

@@ -1,13 +1,17 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import FrameComponent1 from "../components/FrameComponent1";
-import TempComp from "../components/TempComp";
-import { useCallback, useEffect } from "react";
+import NavBar from "../components/NavBar";
+import Modal from "../components/Modal";
 import "./SelectionOne.css";
+
+const gifImage = process.env.PUBLIC_URL + "/tempAnimation.gif";
 
 const SelectionOne = () => {
   const navigate = useNavigate();
-  
-  // Function to speak the given text
+  const gifRef = useRef(null);
+  const [loaded, setLoaded] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
   const speak = (text) => {
     const speechSynthesis = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(text);
@@ -17,15 +21,18 @@ const SelectionOne = () => {
     speechSynthesis.speak(utterance);
   };
 
-  // Voice over sa Homescreen.
+  const cancelSpeech = () => {
+    window.speechSynthesis.cancel();
+  };
+
   useEffect(() => {
-    const utteranceText = "Temperature Selected...... Here is the guide to starting the temperature measurement... First, you must put your right index finger on the temperature sensor in the left.... Make sure you align your finger properly at the tip of the sensor... Do not remove your index finger from the sensor.. when the processing starts to avoid an error results.. and wait result patiently before removing your finger. Press 4 to start... or Press 9 to return to home screen.";
+    const utteranceText =
+      "Temperature Selected...... Here is the guide to starting the temperature measurement... First, you must put your right index finger on the temperature sensor in the left.... Make sure you align your finger properly at the tip of the sensor... Do not remove your index finger from the sensor.. when the processing starts to avoid an error results.. and wait result patiently before removing your finger. Press 4 to start... or Press 9 to return to home screen.";
     speak(utteranceText);
 
-    // Add event listener for keydown event to listen for number pad keys
     const handleKeyPress = (event) => {
       if (event.key === "4") {
-        navigate("/temp-data");
+        handleStartClick();
       } else if (event.key === "9") {
         navigate("/");
       }
@@ -33,78 +40,102 @@ const SelectionOne = () => {
 
     window.addEventListener("keydown", handleKeyPress);
 
-    // Cleanup function to remove event listener when component unmounts
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
   }, [navigate]);
 
   useEffect(() => {
-    // Cancel speech synthesis when navigating away
     return () => {
       window.speechSynthesis.cancel();
     };
-  }, []);  
-  
-  
-  const onHome2StreamlineCoresvgClick = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
+  }, []);
 
-  const onHOMETextClick = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
+  useEffect(() => {
+    let observer;
 
-  const onGroupContainer1Click = useCallback(() => {
+    const handleIntersection = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !loaded && gifRef.current) {
+          gifRef.current.src = gifImage;
+          setLoaded(true);
+        } else if (!entry.isIntersecting && gifRef.current) {
+          gifRef.current.src = "";
+        }
+      });
+    };
+
+    if (typeof IntersectionObserver !== "undefined" && gifRef.current) {
+      observer = new IntersectionObserver(handleIntersection);
+      observer.observe(gifRef.current);
+    }
+
+    return () => {
+      if (observer && gifRef.current) {
+        observer.unobserve(gifRef.current);
+      }
+    };
+  }, [loaded]);
+
+  const handleStartClick = () => {
+    cancelSpeech();
+    setShowModal(true);
+  };
+
+  const handleReturn = () => {
+    navigate("/");
+  };
+
+  const handleConfirm = () => {
+    setShowModal(false);
     navigate("/temp-data");
-  }, [navigate]);
+  };
 
-  const onGroupImageClick = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
+  const handleCancel = () => {
+    setShowModal(false);
+  };
 
- 
   return (
-    <div className="selectionone">
-      <div className="screen-1" />
-      <img className="screen-2-icon" alt="" src="/screen-2.svg" />
-      <FrameComponent1
-        onHome2StreamlineCoresvgClick={onHome2StreamlineCoresvgClick}
-        onHOMETextClick={onHOMETextClick}
-      />
-      <section className="result-temp-label-wrapper">
-        <div className="result-temp-label">
-          <div className="f-r-a-m-e-wrapper">
-            <div className="f-r-a-m-e">
-              <div className="circle-symbol-wrapper">
-                <div className="circle-symbol1">
-                  <div className="circle-parent">
-                    <div className="circle1" />
-                    <img
-                      className="thermometer-icon1"
-                      loading="lazy"
-                      alt=""
-                      src="/thermometer1.png"
-                    />
-                  </div>
-                  <div className="temperature1">Temperature</div>
-                </div>
-              </div>
-              <img
-                className="f-r-a-m-e-child"
-                loading="lazy"
-                alt=""
-                src="/returnbutton.png"
-                onClick={onGroupImageClick}
-              />
+    <div className="selection-one-container">
+      <div className="navbar-container">
+        <NavBar />
+      </div>
+      <div className="main-content">
+        <div className="left-section">
+          <div>
+            <div className="blue-circle">
+              <img src="/thermometer1.png" alt="Temperature" className="circle-image" />
+              <span className="circle-text">Temperature</span>
             </div>
+            <img
+              className="return-button"
+              alt="returnbutton"
+              src="/returnbutton.png"
+              onClick={handleReturn}
+            />
           </div>
-          <TempComp
-            aNIMATIONONHOWTOUSETHETEM="ANIMATION ON HOW TO USE THE TEMPERATURE WITH VOICE "
-            onGroupContainer1Click={onGroupContainer1Click}
-          />
         </div>
-      </section>
+        <div className="right-section">
+          <div className="gif-container">
+            <div className="gif-wrapper">
+              <img ref={gifRef} alt="tempAnimation.gif" className="gif-image" />
+            </div>
+            <img alt="Rectangle" src="/rectangle-9.svg" className="background-image" />
+          </div>
+          <button className="start-button" onClick={handleStartClick}>
+            START
+          </button>
+        </div>
+        {showModal && (
+          <Modal
+            message="Are you sure you want to proceed?"
+            onConfirm={handleConfirm}
+            onCancel={handleCancel}
+            speak={speak}
+            cancelSpeech={cancelSpeech}
+          />
+        )}
+      </div>
     </div>
   );
 };
