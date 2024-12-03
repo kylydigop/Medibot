@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoMicCircleOutline } from "react-icons/io5";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
+import NavBar from "../components/NavBar";
 import "./SelectionThree.css";
 
 const SelectionThree = () => {
@@ -11,10 +12,11 @@ const SelectionThree = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [messages, setMessages] = useState([
-    { type: "bot", text: "Hello there! Ask me any of your medical queries!" },
+    { type: "bot", text: "Hello there! I'm here to help. You can ask me about any general illness? What are their symptoms? and What is their possible cure? Feel free to ask your question, and I'll do my best to assist you." },
   ]);
   const [recognition, setRecognition] = useState(null);
 
+  const chatContainerRef = useRef(null);
   const toggleModal = () => {
     setShowModal(!showModal);
   };
@@ -26,20 +28,22 @@ const SelectionThree = () => {
         method: "DELETE",
       });
       setMessages([
-        { type: "bot", text: "Hello there! Ask me any of your medical queries!" },
+        { type: "bot", text: "Hello there! I'm here to help. You can ask me about any general illness? What are their symptoms? and What is their possible cure? Feel free to ask your question, and I'll do my best to assist you." },
       ]);
+      stopSpeaking();
       navigate("/");
     } catch (error) {
       console.error("Error clearing chat history:", error);
+      stopSpeaking();
       navigate("/"); // Navigate even if there's an error clearing the chat history
     }
   }, [navigate]);
 
   // Handle Text-to-Speech on page load
   useEffect(() => {
-    const initialMessage = "Hello there! Ask me any of your medical queries. Press 8 to start asking questions. Press 9 to go back.";
+    const initialMessage = "Hello there! I'm here to help. You can ask me about any general illness? What are their symptoms? and What is their possible cure? Feel free to ask your question, and I'll do my best to assist you. Press 8 to start asking questions, press 9 to go back.";
     speak(initialMessage);
-  }, []);
+  }, []);  
 
   // Handle keyboard input
   useEffect(() => {
@@ -112,9 +116,15 @@ const SelectionThree = () => {
       console.warn("Speech recognition not initialized yet.");
       return;
     }
-    if (!isListening) {
+    if (isListening) {
+      console.warn("Speech recognition is already running.");
+      return; // Exit if already listening
+    }
+    try {
       setIsListening(true);
       recognition.start();
+    } catch (error) {
+      console.error("Error starting speech recognition:", error);
     }
   };
   
@@ -170,10 +180,6 @@ const SelectionThree = () => {
     try {
       setIsLoading(true);
       setShowModal(true); // Show modal while processing
-      setIsLoading(true);
-      setShowModal(true); // Show modal while processing
-      setIsLoading(true);
-      setShowModal(true); // Show modal while processing
       const response = await fetch("http://localhost:5000/chat", {
         method: "POST",
         headers: {
@@ -196,7 +202,6 @@ const SelectionThree = () => {
       console.error("Error fetching from API:", error);
     } finally {
       setIsLoading(false);
-      setShowModal(false); 
       setShowModal(false); 
     }
   };
@@ -235,12 +240,16 @@ const SelectionThree = () => {
 
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth", // Ensures a smooth scrolling effect
+      });
     }
   }, [messages]);
+  
 
   return (
-    <Container fluid className="selectionthree">
+    <Container className="selection-three-container">
         {/* Modal Section */}
         {showModal && (
           <div className="processing-modal">
@@ -250,26 +259,9 @@ const SelectionThree = () => {
         )}
 
         {/* Header Section */}
-        <Row className="header-section">
-          <section className="rectangle-parent">
-            <div className="rectangle-div" />
-            <div className="speech-language-therapy-parent">
-              <button className="speech-language-therapy">
-                <img
-                  className="logonew"
-                  alt="logo"
-                  src="/logo2.png"
-                  onClick={handleHomeClick}
-                />
-              </button>
-              <div className="health-kiosk-wrapper">
-                <h1 className="health-kiosk" onClick={handleHomeClick}>
-                  MediSation
-                </h1>
-              </div>
-            </div>
-          </section>
-        </Row>
+        <div className="navbar-container">
+          <NavBar />
+        </div>
 
         {/* Chat Display Section */}
         <Row className="body-section">
@@ -294,11 +286,6 @@ const SelectionThree = () => {
               >
                 <div
                   className={`message-bubble ${msg.type === "user" ? "right" : "left"}`}
-                  style={{
-                    maxWidth: "70%",
-                    padding: "10px",
-                    borderRadius: "10px",
-                  }}
                 >
                   {msg.text}
                 </div>
@@ -307,8 +294,8 @@ const SelectionThree = () => {
           </div>
         </Row>
 
-        {/* Microphone and Loading Spinner Section */}
-        <Row className="footer-section justify-content-center align-items-center">
+        {/* Microphone Section */}
+        <Row className="footer-section">
           <Col xs={12} className="text-center">
             <div className="micbtn" onClick={toggleListening}>
               <IoMicCircleOutline size={100} color={isListening ? "red" : "black"} />

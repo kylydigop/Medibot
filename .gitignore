@@ -39,3 +39,4 @@ backend/Scripts
 backend/share
 backend/Library
 backend/.env
+backend/model/llama-2-7b-chat.ggmlv3.q4_0.bin
