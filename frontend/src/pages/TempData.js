@@ -90,6 +90,7 @@ const TempData = () => {
 
   const handleGoBack = () => {
     setShowModal(false); // Hide modal
+    speak("Thank you for using MediSation. Have a great day...");
     navigate("/"); // Navigate to home screen
   };
 

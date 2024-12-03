@@ -1,16 +1,36 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import FrameComponent2 from "../components/FrameComponent2";
+import { DotLoader } from "react-spinners";
+import NavBar from "../components/NavBar";
+import Modal from "../components/Modal";
+import ReplayIcon from "@mui/icons-material/Replay";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./SatData.css";
-import { ClipLoader, DotLoader } from "react-spinners";
 
 const SaturationData = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({ spo2: null, pulse: null });
+  const [showModal, setShowModal] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
 
   const maxRetries = 3; // Maximum number of retry attempts
+
+  const speak = (text) => {
+    const speechSynthesis = window.speechSynthesis;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.pitch = 1.2;
+    utterance.volume = 1;
+    utterance.rate = 0.9;
+    speechSynthesis.speak(utterance);
+  };
+
+  const cancelSpeech = () => {
+    const speechSynthesis = window.speechSynthesis;
+    if (speechSynthesis.speaking) {
+      speechSynthesis.cancel(); // Stop speaking
+    }
+  };
 
   useEffect(() => {
     const fetchData = () => {
@@ -59,115 +79,109 @@ const SaturationData = () => {
     fetchData();
   }, [retryCount]);
 
-  const onHome2StreamlineCoresvgClick = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
-
-  const onHOMETextClick = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
-
-  const onGroup1Click = useCallback(() => {
-    speak("Thank you for using MediSation. Have a great day...");
-    navigate("/");
-  }, [navigate]);
-
-  const speak = (text) => {
-    const speechSynthesis = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.pitch = 0.6;
-    utterance.volume = 1;
-    utterance.rate = 0.6;
-    speechSynthesis.speak(utterance);
+  const handleConfirm = () => {
+    setShowModal(false); // Hide modal
+    window.location.reload(); // Reload page to restart the process
   };
 
+  const handleCancel = () => {
+    setShowModal(false); // Hide modal
+  };
+
+  const handleGoBack = () => {
+    setShowModal(false); // Hide modal
+    speak("Thank you for using MediSation. Have a great day...");
+    navigate("/"); // Navigate to home screen
+  };
+
+  // useEffect for handling keypresses
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "6") {
+        setShowModal(true); // Show modal when "6" is pressed
+      } else if (event.key === "9") {
+        cancelSpeech();
+        speak("Returning to the home screen.");
+        navigate("/");
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [navigate]);
+
   return (
-    <div className="saturation-data">
+    <div className="oxidata-container">
       {loading ? (
-        <div className="loader-scontainer1">
+        <div className="loader-container">
           <DotLoader size={350} color={"#eee518"} loading={loading} />
-          {loading && <span className="loading-text1">PROCESSING</span>}
+          <span className="loading-text">PROCESSING</span>
         </div>
       ) : (
-        <>
-          <div className="screen-13" />
-          <section className="screen-21" />
-          <img
-            className="saturation-data-child"
-            loading="lazy"
-            alt=""
-            src="/vector-9.svg"
-          />
-          <FrameComponent2
-            onHome2StreamlineCoresvgClick={onHome2StreamlineCoresvgClick}
-            onHOMETextClick={onHOMETextClick}
-          />
-          <section className="saturation-data-inner">
-            <div className="frame-div">
-              <div className="vital-signs-result-wrapper">
-                <h1 className="vital-signs-result1">VITAL SIGN RESULT</h1>
-              </div>
-              <div className="frame-parent1">
-                <div className="saturation-subtract-parent">
-                  <div className="saturation-subtract">
-                    <div className="o-o-sat">
-                      <div className="o-o-sat-sub">
-                        <div className="circle5" />
-                        <img
-                          className="o-o-sat-sub-child"
-                          loading="lazy"
-                          alt=""
-                          src="/spo2.png"
-                        />
-                      </div>
-                    </div>
-                    <div className="result-temp-wrapper">
-                      <h1 className="result-temp1">
-                        <p className="p1">Oxygen level</p>
-                        {data.spo2 !== null ? <p>{data.spo2}%</p> : <p> Loading</p>}
-                      </h1>
-                    </div>
-                  </div>
-                  <div className="saturation-subtract1">
-                    <div className="o2-sat-parent">
-                      <img
-                        className="subtract-icon"
-                        loading="lazy"
-                        alt=""
-                        src="/pulso.png"
-                      />
-                      <div className="pr-bpm-wrapper">
-                        <h3 className="pr-bpm"></h3>
-                      </div>
-                    </div>
-                    <div className="result-temp-container">
-                      <h1 className="result-temp2">
-                        <p className="hb">Pulse rate</p>
-                        {data.pulse !== null ? (
-                          <p>{data.pulse} BPM</p>
-                        ) : (
-                          <p> Loading</p>
-                        )}
-                      </h1>
-                    </div>
-                  </div>
-                </div>
-                <div className="frame-parent2">
-                  <div className="frame-wrapper1">
-                    <img
-                      className="frame-item"
-                      loading="lazy"
-                      alt=""
-                      src="/done1.png"
-                      onClick={onGroup1Click}
-                    />
-                  </div>
-                  <div className="done2"></div>
-                </div>
+        <div className="result-container">
+          <div className="navbar-container">
+            <NavBar />
+          </div>
+          <h1 className="result-title">VITAL SIGN RESULT</h1>
+          <div className="main-content"> 
+            {/* First Column */}
+            <div className="first-column">
+              <div className="replay-container" onClick={() => setShowModal(true)}>
+                <ReplayIcon className="replay-icon" style={{ fontSize: "5rem" }}/>
+                <span className="replay-text">Retake Temperature</span>
               </div>
             </div>
-          </section>
-        </>
+
+            {/* Second Column */}
+            <div className="second-column"> 
+              <img
+                className="spo2-image"
+                alt="spo2"
+                src="/spo2.png"
+              />
+              <div className="oxygen-text">
+                <p style={{ margin: "0" }}>Oxygen Saturation</p>
+                {data.spo2 !== null ? <p>{data.spo2}%</p> : <p> Loading</p>}
+              </div>
+            </div>
+
+            {/* Third Column */}
+            <div className="third-column">
+              <img
+                className="pulse-image"
+                alt="pulse"
+                src="/pulso.png"
+              />
+              <div className="pulse-text">
+                <p style={{ margin: "0" }}>Pulse Rate</p>
+                {data.pulse !== null ? <p>{data.pulse} BPM</p> : <p> Loading</p>}
+              </div>
+            </div>
+
+            {/* Fourth Column */}
+            <div className="fourth-column">
+              <div className="arrow-container" onClick={handleGoBack}>
+                <ArrowForwardIcon
+                  className="arrow-icon"
+                  style={{ fontSize: "5rem", fontWeight: "900" }}
+                />
+                <span className="arrow-text">DONE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showModal && (
+        <Modal
+          message="Are you sure you want to proceed?"
+          onConfirm={handleConfirm}
+          onCancel={handleCancel}
+          speak={speak}
+          cancelSpeech={cancelSpeech}
+        />
       )}
     </div>
   );
